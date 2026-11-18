@@ -1,23 +1,30 @@
 import { useFonts } from 'expo-font';
-import { DarkTheme, ThemeProvider } from 'expo-router';
+import { DarkTheme, ThemeProvider, router } from 'expo-router';
 import { TabList, TabSlot, TabTrigger, Tabs, type TabTriggerSlotProps } from 'expo-router/ui';
 import { StatusBar } from 'expo-status-bar';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Sky } from '@/components/sky';
-import { TAB_BAR_HEIGHT, useTheme } from '@/components/ui';
+import { TAB_BAR_HEIGHT, useTheme, Press } from '@/components/ui';
 import { StoreProvider } from '@/state/store';
 import { FONTS } from '@/theme';
 
-function TabButton({ children, isFocused, ...props }: TabTriggerSlotProps) {
+function TabButton({ children, isFocused, onReselect, ...props }: TabTriggerSlotProps & { onReselect?: () => void }) {
   const { C, LABEL } = useTheme();
   return (
     // Cast: the slot's ref type and Pressable's don't line up in the type definitions.
-    <Pressable {...(props as object)} hitSlop={8} style={styles.tab}>
+    <Press
+      {...(props as object)}
+      onPress={(e) => {
+        props.onPress?.(e);
+        if (isFocused) onReselect?.();
+      }}
+      hitSlop={8}
+      style={styles.tab}>
       <Text style={[styles.tabText, { fontFamily: LABEL, color: isFocused ? C.text : C.faint }]}>{children}</Text>
       <View style={[styles.dot, isFocused && { backgroundColor: C.text }]} />
-    </Pressable>
+    </Press>
   );
 }
 
@@ -27,6 +34,10 @@ const THEME = { ...DarkTheme, colors: { ...DarkTheme.colors, background: 'transp
 function Shell() {
   const insets = useSafeAreaInsets();
   const [loaded, error] = useFonts(FONTS);
+  const { look } = useTheme();
+  // Nearly solid, so page text scrolling underneath doesn't show through the tab labels.
+  const n = parseInt(look.onFill.replace('#', ''), 16);
+  const barColor = `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},0.94)`;
   return (
     <>
       <Sky />
@@ -34,9 +45,10 @@ function Shell() {
       {(loaded || error) && (
         <Tabs>
           <TabSlot style={{ flex: 1 }} />
-          <TabList style={[styles.bar, { paddingBottom: Math.max(insets.bottom, 10), height: TAB_BAR_HEIGHT + insets.bottom }]}>
+          <TabList style={[styles.bar, { backgroundColor: barColor, paddingBottom: Math.max(insets.bottom, 10), height: TAB_BAR_HEIGHT + insets.bottom }]}>
             <TabTrigger name="today" href="/" asChild>
-              <TabButton>Today</TabButton>
+              {/* Tapping Today again while looking at another bird goes back to today's bird. */}
+              <TabButton onReselect={() => router.setParams({ bird: undefined })}>Today</TabButton>
             </TabTrigger>
             <TabTrigger name="alarms" href="/alarms" asChild>
               <TabButton>Alarm</TabButton>
@@ -77,7 +89,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     paddingHorizontal: 12,
-    backgroundColor: 'rgba(0,0,0,0.28)',
   },
   tab: { alignItems: 'center', gap: 6, paddingVertical: 8, paddingHorizontal: 6 },
   tabText: { fontSize: 13, letterSpacing: 0.4 },

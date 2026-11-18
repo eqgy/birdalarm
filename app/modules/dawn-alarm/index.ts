@@ -12,6 +12,10 @@ export interface AlarmRequest {
   /** Epoch milliseconds. */
   fireAt: number;
   title: string;
+  /** The bird dealt to this morning, for the Live Activity. */
+  birdName?: string;
+  /** Minutes Snooze waits; 0 or missing = no Snooze button. */
+  snoozeMinutes?: number;
   /** Exact bundled sound filename, or omit for the system alarm sound. */
   sound?: string;
 }

@@ -11,17 +11,17 @@
  */
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useFocusEffect } from 'expo-router';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { router, useFocusEffect, useLocalSearchParams, useNavigation } from 'expo-router';
+import { type ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import {
-  AccessibilityInfo, Animated, Easing, type ScrollViewInstance, Platform, Pressable, StyleSheet, Text, View, useWindowDimensions,
+  AccessibilityInfo, Animated, Easing, type ScrollViewInstance, Platform, StyleSheet, Text, View, useWindowDimensions,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { lastFired } from '@shared/queue';
 
-import { Body, FadeIn, Label, TAB_BAR_HEIGHT, useTheme } from '@/components/ui';
-import { birdById, photoFor, type LibraryBird } from '@/data/birds';
+import { Body, FadeIn, Label, TAB_BAR_HEIGHT, useTheme, Press } from '@/components/ui';
+import { birdById, birdByName, familyMates, lookalikePhoto, photoFor, type LibraryBird } from '@/data/birds';
 import { useStore } from '@/state/store';
 
 const NATIVE = Platform.OS !== 'web';
@@ -103,9 +103,10 @@ function PhotoHeader({
       {/* Top: darken behind the status bar. Bottom: a long fade that ends in exactly the page colour. */}
       <LinearGradient colors={[rgba(shade, 0.55), rgba(shade, 0)]} style={[styles.fade, { top: 0, height: height * 0.22 }]} />
       <LinearGradient
-        colors={[rgba(shade, 0), rgba(shade, 0.35), rgba(shade, 0.8), rgba(shade, 1)]}
-        locations={[0, 0.35, 0.7, 1]}
-        style={[styles.fade, { bottom: -1, height: height * 0.55 }]}
+        // Dark well before the words start, so they never sit on bright photo.
+        colors={[rgba(shade, 0), rgba(shade, 0.55), rgba(shade, 0.88), rgba(shade, 1)]}
+        locations={[0, 0.3, 0.6, 1]}
+        style={[styles.fade, { bottom: -1, height: height * 0.5 }]}
       />
     </Animated.View>
   );
@@ -195,48 +196,182 @@ function MoreHint({ bird, still, onPress }: { bird: LibraryBird; still: boolean;
     return () => loop.stop();
   }, [v, still]);
   return (
-    <Pressable onPress={onPress} hitSlop={12} accessibilityRole="button" style={styles.more}>
+    <Press onPress={onPress} hitSlop={12} accessibilityRole="button" style={styles.more}>
       <Text style={{ color: C.dim, fontFamily: SANS, fontSize: 13 }}>More about the {bird.commonName}</Text>
       <Animated.Text
         style={{ color: C.dim, fontSize: 16, transform: [{ translateY: v.interpolate({ inputRange: [0, 1], outputRange: [0, 4] }) }] }}>
         ↓
       </Animated.Text>
-    </Pressable>
+    </Press>
   );
 }
 
-function Section({ title, children }: { title: string; children: string }) {
+function Section({ title, children }: { title: string; children: ReactNode }) {
   const { C } = useTheme();
   return (
     <View style={[styles.section, { borderTopColor: C.line }]}>
       <Label>{title}</Label>
-      <Body style={{ color: C.text, opacity: 0.88, marginTop: 8 }}>{children}</Body>
+      <View style={{ marginTop: 8 }}>
+        {typeof children === 'string' ? <Body style={{ color: C.text, opacity: 0.88 }}>{children}</Body> : children}
+      </View>
+    </View>
+  );
+}
+
+/** A rounded tag. With onPress it links to another bird. */
+function Chip({ children, onPress }: { children: string; onPress?: () => void }) {
+  const { C, SANS } = useTheme();
+  const text = <Text style={{ color: onPress ? C.text : C.dim, fontFamily: SANS, fontSize: 13 }}>{children}{onPress ? '  →' : ''}</Text>;
+  const style = [styles.chip, { borderColor: onPress ? C.dim : C.line }];
+  return onPress ? (
+    <Press onPress={onPress} accessibilityRole="link" hitSlop={4} style={style}>{text}</Press>
+  ) : (
+    <View style={style}>{text}</View>
+  );
+}
+
+const MONTHS = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
+
+/** Twelve cells, January to December, brighter in the months the bird is around. */
+function MonthBar({ months, caption }: { months: string; caption: string }) {
+  const { C, LABEL } = useTheme();
+  const now = new Date().getMonth();
+  return (
+    <View accessibilityLabel={`${caption}: ${seasonWords(months)}`}>
+      <View style={styles.months}>
+        {MONTHS.map((m, i) => {
+          const level = months[i];
+          return (
+            <View key={i} style={{ flex: 1, alignItems: 'center', gap: 6 }}>
+              <View style={[styles.month, { backgroundColor: C.text, opacity: level === '2' ? 0.75 : level === '1' ? 0.32 : 0.07 }]} />
+              <Text style={{ color: i === now ? C.text : C.faint, fontFamily: LABEL, fontSize: 10 }}>{m}</Text>
+              <View style={[styles.nowDot, i === now && { backgroundColor: C.text }]} />
+            </View>
+          );
+        })}
+      </View>
+      <Text style={{ color: C.faint, fontFamily: LABEL, fontSize: 10, marginTop: 4 }}>{caption.toUpperCase()}</Text>
+    </View>
+  );
+}
+
+const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+function seasonWords(months: string) {
+  if (!months.includes('0')) return 'all year';
+  return `mostly ${MONTH_NAMES.filter((_, i) => months[i] === '2').join(', ')}`;
+}
+
+function RoundPhoto({ source, focusX, size }: { source?: number; focusX?: number; size: number }) {
+  const { C } = useTheme();
+  return (
+    <View style={{ width: size, height: size, borderRadius: size / 2, overflow: 'hidden', backgroundColor: C.fill }}>
+      {source && (
+        <Image source={source} style={{ width: size, height: size }} contentFit="cover"
+          contentPosition={{ left: `${Math.round((focusX ?? 0.5) * 100)}%`, top: '50%' }} transition={300} />
+      )}
+    </View>
+  );
+}
+
+/** A square photo with the bird's name under it; a link when it's a library bird. */
+function ThumbCard({ source, focusX, name, onPress }: { source?: number; focusX?: number; name: string; onPress?: () => void }) {
+  const { C, SANS } = useTheme();
+  const body = (
+    <>
+      <View style={[styles.thumb, { backgroundColor: C.fill }]}>
+        {source && (
+          <Image source={source} style={StyleSheet.absoluteFill} contentFit="cover"
+            contentPosition={{ left: `${Math.round((focusX ?? 0.5) * 100)}%`, top: '50%' }} transition={300} />
+        )}
+      </View>
+      <Text numberOfLines={2} style={{ color: C.text, fontFamily: SANS, fontSize: 13, marginTop: 8, textDecorationLine: onPress ? 'underline' : 'none' }}>
+        {name}{onPress ? ' →' : ''}
+      </Text>
+    </>
+  );
+  return onPress ? (
+    <Press onPress={onPress} accessibilityRole="link" style={{ flex: 1 }}>{body}</Press>
+  ) : (
+    <View style={{ flex: 1 }}>{body}</View>
+  );
+}
+
+// Typical length in cm for each size class, and the three reference birds.
+const SIZE_CM: Record<string, number> = {
+  'Smaller than a sparrow': 12, 'About the size of a sparrow': 15, 'Between a sparrow and a robin': 20,
+  'About the size of a robin': 25, 'Between a robin and a crow': 33, 'About the size of a crow': 45,
+};
+const REFERENCES = [{ name: 'Sparrow', cm: 15 }, { name: 'Robin', cm: 25 }, { name: 'Crow', cm: 45 }];
+
+/** Circles sized by body length: sparrow, robin and crow outlines, with this bird's photo slotted in. */
+function SizeScale({ size, source, focusX }: { size: string; source?: number; focusX?: number }) {
+  const { C, LABEL } = useTheme();
+  const cm = SIZE_CM[size];
+  if (!cm) return null;
+  const px = (n: number) => n * 2.1;
+  const items = [
+    ...REFERENCES.filter((r) => r.cm !== cm).map((r) => ({ ...r, self: false })),
+    { name: 'This bird', cm: cm + 0.1, self: true },
+  ].sort((a, b) => a.cm - b.cm);
+  return (
+    <View style={styles.scale} accessibilityLabel={size}>
+      {items.map((it) => (
+        <View key={it.name} style={{ alignItems: 'center', gap: 8 }}>
+          {it.self ? (
+            <View style={{ borderWidth: 2, borderColor: C.text, borderRadius: px(it.cm) }}>
+              <RoundPhoto source={source} focusX={focusX} size={px(it.cm)} />
+            </View>
+          ) : (
+            <View style={{ width: px(it.cm), height: px(it.cm), borderRadius: px(it.cm), borderWidth: 1, borderStyle: 'dashed', borderColor: C.dim }} />
+          )}
+          <Text style={{ color: it.self ? C.text : C.faint, fontFamily: LABEL, fontSize: 10 }}>{it.name.toUpperCase()}</Text>
+        </View>
+      ))}
     </View>
   );
 }
 
 export default function TodayScreen() {
   const { ready, queue, library } = useStore();
-  const { C, ITALIC, SANS, ds, display, look } = useTheme();
-  const { width, height } = useWindowDimensions();
-  const insets = useSafeAreaInsets();
-  const still = useReduceMotion();
-  const scrollY = useRef(new Animated.Value(0)).current;
-  const scroller = useRef<ScrollViewInstance>(null);
-  const [detailsY, setDetailsY] = useState(0);
+  const params = useLocalSearchParams<{ bird?: string }>();
+  const navigation = useNavigation();
+  // Leaving the tab forgets the opened bird, so Today shows today's bird when you come back.
+  useFocusEffect(
+    useCallback(() => () => navigation.setParams({ bird: undefined } as never), [navigation]),
+  );
+  const [dayNumber] = useState(() => Math.floor(Date.now() / 86_400_000));
   if (!ready) return <View style={{ flex: 1 }} />;
 
   // The bird that actually woke you, if an alarm has rung; otherwise a bird of the day.
   const woke = birdById(lastFired(queue)?.birdId);
-  const dayNumber = Math.floor(Date.now() / 86_400_000);
-  const bird = woke ?? library[dayNumber % library.length]!;
-  const photo = photoFor(bird.id);
-  const shade = look.onFill;
-  const textShadow = { textShadowColor: 'rgba(0,0,0,0.45)', textShadowRadius: 12, textShadowOffset: { width: 0, height: 1 } };
+  const todays = woke ?? library[dayNumber % library.length]!;
+  // A bird opened from the Birds list or a link on this page.
+  const picked = birdById(params.bird);
+  const bird = picked ?? todays;
+  const label = picked && picked.id !== todays.id ? 'From the library' : woke ? 'Who woke you up' : "Today's bird";
+  // A fresh scene per bird, so the page starts at the top.
+  return <BirdScene key={bird.id} bird={bird} label={label} showBack={label === 'From the library'} />;
+}
 
-  // Tall, portrait-leaning photo: up to 1.3x as tall as it is wide, at most 64% of the screen.
-  const headerH = photo ? Math.min(width * 1.3, height * 0.64) : height * 0.3;
-  const spacer = headerH * 0.72;
+function BirdScene({ bird, label, showBack }: { bird: LibraryBird; label: string; showBack: boolean }) {
+  const { C, ITALIC, SANS, ds, display, look } = useTheme();
+  const { width, height } = useWindowDimensions();
+  const insets = useSafeAreaInsets();
+  const still = useReduceMotion();
+  const [scrollY] = useState(() => new Animated.Value(0));
+  const scroller = useRef<ScrollViewInstance>(null);
+  const [detailsY, setDetailsY] = useState(0);
+  const open = (id: string) => router.push({ pathname: '/', params: { bird: id } });
+  const photo = photoFor(bird.id);
+  const { library } = useStore();
+  const mates = familyMates(bird, library);
+  const caption = bird.regions.includes('north-america') ? 'Across most of the US' : 'Across western Europe';
+  const shade = look.onFill;
+  const textShadow = { textShadowColor: 'rgba(0,0,0,0.7)', textShadowRadius: 10, textShadowOffset: { width: 0, height: 1 } };
+
+  // Tall, portrait photo: up to 1.65x as tall as it is wide, at most 80% of the screen.
+  const headerH = photo ? Math.min(width * 1.65, height * 0.8) : height * 0.3;
+  const spacer = headerH * 0.66;
 
   return (
     <View style={{ flex: 1, backgroundColor: shade }}>
@@ -253,13 +388,13 @@ export default function TodayScreen() {
 
         <View style={styles.words}>
           <FadeIn delay={700}>
-            <Label style={textShadow}>{woke ? 'Who woke you up' : "Today's bird"}</Label>
+            <Label style={[{ color: C.text, opacity: 0.8 }, textShadow]}>{label}</Label>
           </FadeIn>
           <FadeIn delay={1200}>
             <Text style={[styles.name, { color: C.text, lineHeight: ds(50) + 6 }, display(50), textShadow]}>
               {bird.commonName}
             </Text>
-            <Text style={[styles.sci, { color: C.dim, fontFamily: ITALIC }, textShadow]}>{bird.scientificName}</Text>
+            <Text style={[styles.sci, { color: C.text, opacity: 0.85, fontFamily: ITALIC }, textShadow]}>{bird.scientificName}</Text>
           </FadeIn>
           <FadeIn delay={2000}>
             <Body style={[styles.fact, { color: C.text, opacity: 0.88 }]}>{bird.fact}</Body>
@@ -267,12 +402,12 @@ export default function TodayScreen() {
           <FadeIn delay={2800} style={styles.playRow}>
             <View style={styles.playWrap}>
               <Breath color={C.text} still={still} />
-              <Pressable
+              <Press
                 disabled
                 accessibilityLabel="Play recording (not available yet)"
                 style={[styles.play, { borderColor: C.dim, backgroundColor: rgba(shade, 0.35) }]}>
                 <View style={[styles.triangle, { borderLeftColor: C.text }]} />
-              </Pressable>
+              </Press>
             </View>
             <Text style={[styles.note, { color: C.faint, fontFamily: SANS }]}>Song coming with the{'\n'}audio library</Text>
           </FadeIn>
@@ -285,10 +420,88 @@ export default function TodayScreen() {
           </FadeIn>
 
           <View onLayout={(e) => setDetailsY(e.nativeEvent.layout.y + spacer)} style={styles.details}>
+            {bird.marks && (
+              <Section title="Field marks">
+                {bird.marks.map((m) => (
+                  <View key={m} style={styles.bullet}>
+                    <View style={[styles.bulletDot, { backgroundColor: C.dim }]} />
+                    <Body style={{ color: C.text, opacity: 0.88, flex: 1 }}>{m}</Body>
+                  </View>
+                ))}
+              </Section>
+            )}
             {bird.listen && <Section title="Listen for">{bird.listen}</Section>}
+            {bird.lookalikes && (
+              <Section title="Lookalikes">
+                {bird.lookalikes.map((l) => {
+                  const other = birdByName(l.name);
+                  return (
+                    <View key={l.name} style={[styles.compare, { borderColor: C.line }]}>
+                      <View style={styles.compareRow}>
+                        <ThumbCard source={photo?.source} focusX={photo?.credit.focusX} name={bird.commonName} />
+                        <Text style={[styles.vs, { color: C.faint, fontFamily: ITALIC }]}>vs</Text>
+                        <ThumbCard
+                          source={lookalikePhoto(l.name)?.source}
+                          focusX={lookalikePhoto(l.name)?.credit.focusX}
+                          name={l.name}
+                          onPress={other ? () => open(other.id) : undefined}
+                        />
+                      </View>
+                      <Body style={{ color: C.text, opacity: 0.85, marginTop: 12 }}>{l.tell}</Body>
+                    </View>
+                  );
+                })}
+              </Section>
+            )}
+            {bird.plumage && <Section title="Male, female and young">{bird.plumage}</Section>}
+            {bird.months && (
+              <Section title="When to see it">
+                <MonthBar months={bird.months} caption={caption} />
+                {bird.seasonNote && <Body style={{ color: C.text, opacity: 0.88, marginTop: 14 }}>{bird.seasonNote}</Body>}
+              </Section>
+            )}
             {bird.habitat && <Section title="Where to look">{bird.habitat}</Section>}
-            {bird.size && <Section title="Size">{bird.size}</Section>}
-            {bird.family && <Section title="Family">{bird.family}</Section>}
+            {bird.size && (
+              <Section title="Size">
+                <SizeScale size={bird.size} source={photo?.source} focusX={photo?.credit.focusX} />
+                <Body style={{ color: C.text, opacity: 0.88, marginTop: 12 }}>{bird.size}</Body>
+              </Section>
+            )}
+            {bird.family && (
+              <Section title="Family">
+                <Body style={{ color: C.text, opacity: 0.88 }}>{bird.family}</Body>
+                {mates.length > 0 && (
+                  <>
+                    <Text style={{ color: C.dim, fontFamily: SANS, fontSize: 13, marginTop: 12 }}>Also in the library</Text>
+                    <View style={styles.mates}>
+                      {mates.map((m) => (
+                        <Press key={m.id} onPress={() => open(m.id)} accessibilityRole="link" style={styles.mate}>
+                          <RoundPhoto source={photoFor(m.id)?.source} focusX={photoFor(m.id)?.credit.focusX} size={64} />
+                          <Text numberOfLines={2} style={{ color: C.text, fontFamily: SANS, fontSize: 12, textAlign: 'center', marginTop: 6 }}>
+                            {m.commonName}
+                          </Text>
+                        </Press>
+                      ))}
+                    </View>
+                  </>
+                )}
+              </Section>
+            )}
+            {bird.groups && (
+              <Section title="Categories">
+                <View style={[styles.chips, { marginTop: 0 }]}>
+                  {bird.groups.map((g) => (
+                    <Chip key={g}>{g}</Chip>
+                  ))}
+                </View>
+              </Section>
+            )}
+            {bird.nameNote && <Section title="The name">{bird.nameNote}</Section>}
+            {showBack && (
+              <Press onPress={() => router.setParams({ bird: undefined })} accessibilityRole="button" style={styles.back}>
+                <Text style={{ color: C.text, fontFamily: SANS, fontSize: 14 }}>{'← Back to today’s bird'}</Text>
+              </Press>
+            )}
             {photo && (
               <Text style={[styles.credit, { color: C.faint, fontFamily: SANS }]}>
                 Photo: {photo.credit.artist}, {photo.credit.license}, via Wikimedia Commons
@@ -335,4 +548,19 @@ const styles = StyleSheet.create({
   details: { marginTop: 28 },
   section: { borderTopWidth: StyleSheet.hairlineWidth, paddingVertical: 20 },
   credit: { fontSize: 11, lineHeight: 16, marginTop: 12 },
+  bullet: { flexDirection: 'row', alignItems: 'flex-start', gap: 12, marginBottom: 6 },
+  bulletDot: { width: 5, height: 5, borderRadius: 3, marginTop: 10 },
+  chips: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 10 },
+  chip: { borderWidth: StyleSheet.hairlineWidth, borderRadius: 999, paddingHorizontal: 12, paddingVertical: 7 },
+  months: { flexDirection: 'row', gap: 4, marginTop: 4 },
+  month: { alignSelf: 'stretch', height: 22, borderRadius: 4 },
+  nowDot: { width: 4, height: 4, borderRadius: 2, backgroundColor: 'transparent' },
+  compare: { borderWidth: StyleSheet.hairlineWidth, borderRadius: 14, padding: 14, marginBottom: 12 },
+  compareRow: { flexDirection: 'row', alignItems: 'center', gap: 10 },
+  vs: { fontSize: 15 },
+  thumb: { width: '100%', aspectRatio: 1, borderRadius: 10, overflow: 'hidden' },
+  mates: { flexDirection: 'row', flexWrap: 'wrap', gap: 14, marginTop: 12 },
+  mate: { width: 72, alignItems: 'center' },
+  scale: { flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-around', paddingVertical: 8 },
+  back: { alignSelf: 'center', paddingVertical: 14, paddingHorizontal: 18, marginTop: 8 },
 });

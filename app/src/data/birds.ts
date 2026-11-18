@@ -7,6 +7,8 @@
 import { getLocales } from 'expo-localization';
 
 import birdList from './birds.json';
+import { LOOKALIKE_FILES } from './lookalike-files';
+import lookalikeCredits from './lookalike-photos.json';
 import { PHOTO_FILES } from './photo-files';
 import photoCredits from './photos.json';
 
@@ -24,6 +26,19 @@ export interface LibraryBird {
   habitat?: string;
   /** What its song sounds like. */
   listen?: string;
+  /** Two or three things that identify it at a glance. */
+  marks?: string[];
+  /** Birds it's often confused with, and how to tell them apart. */
+  lookalikes?: { name: string; tell: string }[];
+  /** How males, females and young birds differ, and any seasonal change. */
+  plumage?: string;
+  /** 12 characters, Jan to Dec: 2 = widespread, 1 = some, 0 = absent. Most of the US, or western Europe. */
+  months?: string;
+  seasonNote?: string;
+  /** Where the common and scientific names come from. */
+  nameNote?: string;
+  /** Categories it falls under, e.g. "Songbird", "Thrush", "Feeder visitor". */
+  groups?: string[];
 }
 
 export interface PhotoCredit {
@@ -90,3 +105,25 @@ export function birdsFor(region: string | undefined, worldwide: boolean): Librar
 }
 
 export const birdById = (id: string | undefined) => BIRDS.find((b) => b.id === id);
+
+export const birdByName = (name: string) => BIRDS.find((b) => b.commonName === name);
+
+/** Other birds from the same family, out of the given list (the birds in your region by default). */
+export const familyMates = (bird: LibraryBird, among: LibraryBird[] = BIRDS) =>
+  bird.family ? among.filter((b) => b.family === bird.family && b.id !== bird.id) : [];
+
+const lookalikeCreditMap: Record<string, PhotoCredit & { name: string }> = lookalikeCredits;
+const slug = (name: string) => name.toLowerCase().replace(/'/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+/** A photo for a lookalike: the library photo if it's a library bird, otherwise its own small photo. */
+export function lookalikePhoto(name: string): { source: number; credit: PhotoCredit } | undefined {
+  const own = birdByName(name);
+  if (own) return photoFor(own.id);
+  const key = slug(name);
+  const source = LOOKALIKE_FILES[key];
+  const credit = lookalikeCreditMap[key];
+  return source && credit ? { source, credit } : undefined;
+}
+
+/** Credits for the lookalike photos, for the Credits screen. */
+export const LOOKALIKE_CREDITS = Object.values(lookalikeCreditMap).map((c) => ({ bird: c.name, ...c }));

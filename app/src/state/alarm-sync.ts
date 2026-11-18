@@ -8,6 +8,8 @@ import { useEffect, useRef, useState } from 'react';
 
 import type { ScheduledAlarm } from '@shared/types';
 
+import { birdById } from '@/data/birds';
+
 import { DawnAlarm, type AlarmAuthorization } from '../../modules/dawn-alarm';
 
 export type AlarmSyncStatus =
@@ -17,15 +19,16 @@ export type AlarmSyncStatus =
   | { kind: 'denied' }
   | { kind: 'error'; message: string };
 
-const signature = (alarms: ScheduledAlarm[]) => alarms.map((a) => `${a.id}@${a.fireAt}`).join('|');
+const signature = (alarms: ScheduledAlarm[], snooze: number) =>
+  `${snooze}#` + alarms.map((a) => `${a.id}@${a.fireAt}@${a.birdId}`).join('|');
 
-export function useAlarmSync(upcoming: ScheduledAlarm[], ready: boolean) {
+export function useAlarmSync(upcoming: ScheduledAlarm[], ready: boolean, snoozeMinutes: number) {
   const [status, setStatus] = useState<AlarmSyncStatus>(DawnAlarm ? { kind: 'syncing' } : { kind: 'unavailable' });
   const [auth, setAuth] = useState<AlarmAuthorization | 'unavailable'>(DawnAlarm ? 'notDetermined' : 'unavailable');
   const [attempt, setAttempt] = useState(0);
   const last = useRef<string>('');
 
-  const sig = signature(upcoming);
+  const sig = signature(upcoming, snoozeMinutes);
 
   useEffect(() => {
     if (!DawnAlarm || !ready) return;
@@ -37,6 +40,9 @@ export function useAlarmSync(upcoming: ScheduledAlarm[], ready: boolean) {
         id: a.id,
         fireAt: a.fireAt,
         title: 'Good morning',
+        // Shown on the Live Activity while snoozing, after you've already heard it.
+        birdName: birdById(a.birdId)?.commonName ?? 'Your bird',
+        snoozeMinutes,
         // Bundled bird recordings aren't in the app yet, so AlarmKit plays its default sound.
       })),
     )

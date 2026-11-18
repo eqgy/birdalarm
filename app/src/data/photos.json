@@ -237,6 +237,13 @@
     "file": "White-crowned-Sparrow.jpg",
     "focusX": 0.38
   },
+  "western-tanager": {
+    "artist": "http://www.naturespicsonline.com/",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Western_Tanager_(male).jpg",
+    "file": "Western_Tanager_(male).jpg",
+    "focusX": 0.35
+  },
   "barred-owl": {
     "artist": "Andy Reago & Chrissy McClarren",
     "license": "CC BY 2.0",
@@ -284,6 +291,195 @@
     "license": "CC BY-SA 4.0",
     "source": "https://commons.wikimedia.org/wiki/File:Eurasian_blackcap_(Sylvia_atricapilla)_male_Drenthe.jpg",
     "file": "Eurasian_blackcap_(Sylvia_atricapilla)_male_Drenthe.jpg",
+    "focusX": 0.55
+  },
+  "carolina-chickadee": {
+    "artist": "Dan Pancamo",
+    "license": "CC BY-SA 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Carolina_Chickadee1_by_Dan_Pancamo.jpg",
+    "file": "Carolina_Chickadee1_by_Dan_Pancamo.jpg",
+    "focusX": 0.55
+  },
+  "white-breasted-nuthatch": {
+    "artist": "Rhododendrites",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:White-breasted_nuthatch_(26471).jpg",
+    "file": "White-breasted_nuthatch_(26471).jpg",
+    "focusX": 0.5
+  },
+  "downy-woodpecker": {
+    "artist": "Cephas",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Dryobates_pubescens_UL_03.jpg",
+    "file": "Dryobates_pubescens_UL_03.jpg",
+    "focusX": 0.6
+  },
+  "red-bellied-woodpecker": {
+    "artist": "Ken Thomas",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:Red-bellied_Woodpecker-27527.jpg",
+    "file": "Red-bellied_Woodpecker-27527.jpg",
+    "focusX": 0.5
+  },
+  "northern-flicker": {
+    "artist": "Rhododendrites",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Northern_yellow-shafted_flicker_male_(33737)_(cropped).jpg",
+    "file": "Northern_yellow-shafted_flicker_male_(33737)_(cropped).jpg",
+    "focusX": 0.55
+  },
+  "cedar-waxwing": {
+    "artist": "Rhododendrites",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Cedar_waxwing_in_pokeweed_(10132).jpg",
+    "file": "Cedar_waxwing_in_pokeweed_(10132).jpg",
+    "focusX": 0.55
+  },
+  "american-crow": {
+    "artist": "Unknown",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Corvus-brachyrhynchos-001.jpg",
+    "file": "Corvus-brachyrhynchos-001.jpg",
+    "focusX": 0.45
+  },
+  "common-grackle": {
+    "artist": "Rhododendrites",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Common_grackle_in_PP_(36732).jpg",
+    "file": "Common_grackle_in_PP_(36732).jpg",
+    "focusX": 0.45
+  },
+  "eastern-meadowlark": {
+    "artist": "Charles J. Sharp",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Eastern_meadowlark_(Sturnella_magna_mexicana)_Orange_Walk.jpg",
+    "file": "Eastern_meadowlark_(Sturnella_magna_mexicana)_Orange_Walk.jpg",
+    "focusX": 0.7
+  },
+  "scarlet-tanager": {
+    "artist": "Rhododendrites",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Scarlet_tanager_in_GWC_(50867).jpg",
+    "file": "Scarlet_tanager_in_GWC_(50867).jpg",
+    "focusX": 0.55
+  },
+  "purple-finch": {
+    "artist": "Cephas",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Carpodacus_purpureus_CT3.jpg",
+    "file": "Carpodacus_purpureus_CT3.jpg",
+    "focusX": 0.45
+  },
+  "ruby-throated-hummingbird": {
+    "artist": "jeffreyw",
+    "license": "CC BY 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Archilochus_colubris_-flying_-male-8.jpg",
+    "file": "Archilochus_colubris_-flying_-male-8.jpg",
+    "focusX": 0.55
+  },
+  "killdeer": {
+    "artist": "Charles Homler d/b/a FocusOnWildlife",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Killdeer_Heislerville.png",
+    "file": "Killdeer_Heislerville.png",
+    "focusX": 0.6
+  },
+  "great-horned-owl": {
+    "artist": "Greg Hume",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Bubo_virginianus_06.jpg",
+    "file": "Bubo_virginianus_06.jpg",
+    "focusX": 0.5
+  },
+  "eastern-wood-pewee": {
+    "artist": "Rhododendrites",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Eastern_wood_pewee_(71095).jpg",
+    "file": "Eastern_wood_pewee_(71095).jpg",
+    "focusX": 0.45
+  },
+  "eastern-kingbird": {
+    "artist": "Rhododendrites",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Eastern_kingbird_on_the_hunt_(56948).jpg",
+    "file": "Eastern_kingbird_on_the_hunt_(56948).jpg",
+    "focusX": 0.5
+  },
+  "spotted-towhee": {
+    "artist": "Becky Matsubara from El Sobrante, California",
+    "license": "CC BY 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Spotted_Towhee_(32684403303).jpg",
+    "file": "Spotted_Towhee_(32684403303).jpg",
+    "focusX": 0.45
+  },
+  "stellers-jay": {
+    "artist": "Noel Reynolds",
+    "license": "CC BY 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Steller%27s_Jay_flagstaff_arizona.jpg",
+    "file": "Steller's_Jay_flagstaff_arizona.jpg",
+    "focusX": 0.45
+  },
+  "black-headed-grosbeak": {
+    "artist": "Alan Vernon",
+    "license": "CC BY 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Pheucticus_melanocephalus_-California,_USA-8.jpg",
+    "file": "Pheucticus_melanocephalus_-California,_USA-8.jpg",
+    "focusX": 0.6
+  },
+  "house-sparrow": {
+    "artist": "Rhododendrites",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:House_sparrow_male_in_Prospect_Park_(53532).jpg",
+    "file": "House_sparrow_male_in_Prospect_Park_(53532).jpg",
+    "focusX": 0.5
+  },
+  "european-starling": {
+    "artist": "Charles J. Sharp",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Common_starling_(Sturnus_vulgaris)_breeding_male_Marken.jpg",
+    "file": "Common_starling_(Sturnus_vulgaris)_breeding_male_Marken.jpg",
+    "focusX": 0.5
+  },
+  "great-tit": {
+    "artist": "Frank Vassen from Brussels, Belgium",
+    "license": "CC BY 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Great_tit_(Parus_major),_Parc_du_Rouge-Cloitre,_For%C3%AAt_de_Soignes,_Brussels_(26194636951).jpg",
+    "file": "Great_tit_(Parus_major),_Parc_du_Rouge-Cloitre,_Forêt_de_Soignes,_Brussels_(26194636951).jpg",
+    "focusX": 0.4
+  },
+  "eurasian-blue-tit": {
+    "artist": "Francis Franklin",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Eurasian_blue_tit_Lancashire.jpg",
+    "file": "Eurasian_blue_tit_Lancashire.jpg",
+    "focusX": 0.35
+  },
+  "dunnock": {
+    "artist": "Charles J. Sharp",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Dunnock_(Prunella_modularis)_3.jpg",
+    "file": "Dunnock_(Prunella_modularis)_3.jpg",
+    "focusX": 0.5
+  },
+  "european-goldfinch": {
+    "artist": "Giles Laurent",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:072_Wild_European_goldfinch_at_the_Parc_Jura_vaudois_Photo_by_Giles_Laurent.jpg",
+    "file": "072_Wild_European_goldfinch_at_the_Parc_Jura_vaudois_Photo_by_Giles_Laurent.jpg",
+    "focusX": 0.55
+  },
+  "common-nightingale": {
+    "artist": "Warrieboy",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Luscinia_megarhynchos_-_Common_nightingale_-_Nachtegaal_(cropped).jpg",
+    "file": "Luscinia_megarhynchos_-_Common_nightingale_-_Nachtegaal_(cropped).jpg",
+    "focusX": 0.5
+  },
+  "eurasian-skylark": {
+    "artist": "User:Diliff",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Skylark_2,_Lake_District,_England_-_June_2009.jpg",
+    "file": "Skylark_2,_Lake_District,_England_-_June_2009.jpg",
     "focusX": 0.55
   }
 }

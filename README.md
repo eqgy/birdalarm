@@ -10,10 +10,11 @@ Status: early. The alarm logic is tested, the preview app runs in Expo Go, and t
 |---|---|---|
 | `shared/` | Plain TypeScript: bird rotation, schedule math, the rolling 14-alarm queue | Done, 28 tests |
 | `pipeline/` | License checker (7 tests), photo fetcher (Wikimedia Commons), audio curation (not started) | Partly done |
-| `app/` | Expo (React Native) app: Today, Alarm, Birds, Settings, Credits; 42 birds with photos | Preview works in Expo Go |
+| `app/` | Expo (React Native) app: Today, Alarm, Birds, Settings, Credits; 69 birds with photos, lookalikes, multiple alarms with snooze | Preview works in Expo Go |
 | `app/modules/dawn-alarm/` | Swift, AlarmKit (iOS 26+) | Written, not yet compiled |
 | Android alarm module | Kotlin, AlarmManager + foreground audio service | Not started |
-| `docs/install-iphone.md` | Building in the cloud and installing through TestFlight | Done |
+| `HOW-TO-UPLOAD.md` | Building in the cloud and uploading to TestFlight (for the Apple account holder) | Done |
+| `app/targets/alarm-widget/` | Live Activity shown on the Lock Screen and Dynamic Island while ringing or snoozed | Written, not yet compiled |
 | `audio/` | Bundled `.caf` (iPhone alarms) and `.m4a` (playback) clips | Empty |
 | `birds.json` | The bird library | Empty |
 

@@ -8,8 +8,9 @@
 // Alarm ids from JS are strings like "main:2026-11-18". AlarmKit wants UUIDs, so each string
 // is hashed into a stable UUID.
 //
-// Not yet: snooze. AlarmKit's countdown/snooze button requires a Live Activity widget
-// extension; for now the alert has a Stop button only.
+// Snooze: when snoozeMinutes > 0 the alert gets a Snooze button that starts an AlarmKit
+// countdown, then rings again. The countdown is drawn by the Live Activity in
+// targets/alarm-widget (AlarmKit requires one for countdowns).
 
 import ActivityKit
 import AlarmKit
@@ -17,7 +18,11 @@ import CryptoKit
 import ExpoModulesCore
 import SwiftUI
 
-struct DawnAlarmMetadata: AlarmMetadata {}
+/// Must match the struct of the same name in targets/alarm-widget/AlarmLiveActivity.swift,
+/// so the widget can read it.
+struct DawnAlarmMetadata: AlarmMetadata {
+  var birdName: String = ""
+}
 
 struct AlarmRequest: Record {
   @Field var id: String = ""
@@ -27,6 +32,10 @@ struct AlarmRequest: Record {
   @Field var title: String = "Good morning"
   /// Exact filename of a sound in the app bundle, e.g. "american-robin.caf". Nil = system sound.
   @Field var sound: String? = nil
+  /// The bird dealt to this morning, shown on the Live Activity while snoozing.
+  @Field var birdName: String = ""
+  /// Minutes Snooze waits before ringing again. 0 = no Snooze button.
+  @Field var snoozeMinutes: Double = 0
 }
 
 final class AlarmKitDeniedException: Exception {
@@ -96,11 +105,34 @@ public class DawnAlarmModule: Module {
       text: LocalizedStringResource(stringLiteral: "Stop"),
       textColor: .white,
       systemImageName: "stop.circle")
-    let alert = AlarmPresentation.Alert(
-      title: LocalizedStringResource(stringLiteral: request.title),
-      stopButton: stopButton)
+    let title = LocalizedStringResource(stringLiteral: request.title)
+    let snoozeSeconds = max(0, request.snoozeMinutes) * 60
+
+    let presentation: AlarmPresentation
+    var countdown: Alarm.CountdownDuration? = nil
+    if snoozeSeconds > 0 {
+      let snoozeButton = AlarmButton(
+        text: LocalizedStringResource(stringLiteral: "Snooze"),
+        textColor: .white,
+        systemImageName: "zzz")
+      let alert = AlarmPresentation.Alert(
+        title: title,
+        stopButton: stopButton,
+        secondaryButton: snoozeButton,
+        secondaryButtonBehavior: .countdown)
+      let snoozing = AlarmPresentation.Countdown(
+        title: LocalizedStringResource(stringLiteral: "Snoozing"),
+        pauseButton: nil)
+      presentation = AlarmPresentation(alert: alert, countdown: snoozing, paused: nil)
+      // No countdown before the first ring; Snooze counts down this long, then rings again.
+      countdown = Alarm.CountdownDuration(preAlert: nil, postAlert: snoozeSeconds)
+    } else {
+      presentation = AlarmPresentation(alert: AlarmPresentation.Alert(title: title, stopButton: stopButton))
+    }
+
     let attributes = AlarmAttributes<DawnAlarmMetadata>(
-      presentation: AlarmPresentation(alert: alert),
+      presentation: presentation,
+      metadata: DawnAlarmMetadata(birdName: request.birdName),
       tintColor: Color(red: 0.79, green: 0.47, blue: 0.37))
 
     let sound: AlertConfiguration.AlertSound
@@ -111,6 +143,7 @@ public class DawnAlarmModule: Module {
     }
 
     let configuration = AlarmManager.AlarmConfiguration<DawnAlarmMetadata>(
+      countdownDuration: countdown,
       schedule: .fixed(date),
       attributes: attributes,
       sound: sound)

@@ -1,8 +1,9 @@
+import * as Haptics from 'expo-haptics';
 import { useFocusEffect } from 'expo-router';
-import { useCallback, useMemo, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 import {
   Animated, Easing, Platform, Pressable, ScrollView, StyleSheet, Text, View,
-  type StyleProp, type TextProps, type ViewStyle,
+  type GestureResponderEvent, type PressableProps, type StyleProp, type TextProps, type ViewStyle,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -77,30 +78,101 @@ export function Body(props: TextProps) {
   return <Text {...props} style={[{ color: C.dim, fontFamily: SANS, fontSize: 16, lineHeight: 24 }, props.style]} />;
 }
 
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+const NATIVE_DRIVER = Platform.OS !== 'web';
+
+/** A light tap you can feel. Does nothing where haptics aren't available (web). */
+export function tapFeedback() {
+  if (Platform.OS === 'web') return;
+  Haptics.selectionAsync().catch(() => {});
+}
+
+/**
+ * Every button in the app. On touch it eases down to 96% and dims a little, then springs
+ * back on release, with a light haptic tap on press. Takes the same props as Pressable,
+ * except that `style` must be a plain style (not a function).
+ */
+export function Press({
+  style, children, onPress, onPressIn, onPressOut, haptic = true, depth = 0.96, ...rest
+}: Omit<PressableProps, 'style' | 'children'> & {
+  style?: StyleProp<ViewStyle>;
+  children?: ReactNode;
+  /** Tap the Taptic Engine on press. */
+  haptic?: boolean;
+  /** How far it shrinks while held, 1 = not at all. */
+  depth?: number;
+}) {
+  const [v] = useState(() => new Animated.Value(0));
+  const go = (to: number) =>
+    Animated.spring(v, { toValue: to, useNativeDriver: NATIVE_DRIVER, speed: to ? 50 : 18, bounciness: to ? 0 : 7 }).start();
+  return (
+    <AnimatedPressable
+      {...rest}
+      onPressIn={(e: GestureResponderEvent) => {
+        go(1);
+        onPressIn?.(e);
+      }}
+      onPressOut={(e: GestureResponderEvent) => {
+        go(0);
+        onPressOut?.(e);
+      }}
+      onPress={(e: GestureResponderEvent) => {
+        if (haptic) tapFeedback();
+        onPress?.(e);
+      }}
+      style={[
+        style,
+        {
+          opacity: v.interpolate({ inputRange: [0, 1], outputRange: [1, 0.72] }),
+          transform: [{ scale: v.interpolate({ inputRange: [0, 1], outputRange: [1, depth] }) }],
+        },
+      ]}>
+      {children}
+    </AnimatedPressable>
+  );
+}
+
 export function Row({ children, onPress }: { children: ReactNode; onPress?: () => void }) {
   const { C } = useTheme();
   const inner = <View style={[styles.row, { borderBottomColor: C.line }]}>{children}</View>;
   return onPress ? (
-    <Pressable onPress={onPress} style={({ pressed }) => pressed && { opacity: 0.6 }}>
+    <Press onPress={onPress} depth={0.985}>
       {inner}
-    </Pressable>
+    </Press>
   ) : (
     inner
   );
 }
 
+/** On/off switch: the knob glides across and the track fades between colours. */
 export function Toggle({ value, onChange, label }: { value: boolean; onChange: (v: boolean) => void; label: string }) {
   const { C } = useTheme();
+  const [v] = useState(() => new Animated.Value(value ? 1 : 0));
+  useEffect(() => {
+    Animated.spring(v, { toValue: value ? 1 : 0, useNativeDriver: false, speed: 16, bounciness: 6 }).start();
+  }, [v, value]);
   return (
-    <Pressable
+    <Press
       accessibilityRole="switch"
       accessibilityState={{ checked: value }}
       accessibilityLabel={label}
       onPress={() => onChange(!value)}
       hitSlop={10}
-      style={[styles.toggle, { backgroundColor: value ? C.fillOn : C.fill }]}>
-      <View style={[styles.knob, value ? { alignSelf: 'flex-end', backgroundColor: C.onFill } : { backgroundColor: C.dim }]} />
-    </Pressable>
+      depth={0.92}
+      style={styles.toggleHit}>
+      <Animated.View
+        style={[styles.toggle, { backgroundColor: v.interpolate({ inputRange: [0, 1], outputRange: [C.fill, C.fillOn] }) }]}>
+        <Animated.View
+          style={[
+            styles.knob,
+            {
+              backgroundColor: v.interpolate({ inputRange: [0, 1], outputRange: [C.dim, C.onFill] }),
+              transform: [{ translateX: v.interpolate({ inputRange: [0, 1], outputRange: [0, 18] }) }],
+            },
+          ]}
+        />
+      </Animated.View>
+    </Press>
   );
 }
 
@@ -121,6 +193,7 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
+  toggleHit: { borderRadius: 14 },
   toggle: { width: 46, height: 28, borderRadius: 14, padding: 3, justifyContent: 'center' },
   knob: { width: 22, height: 22, borderRadius: 11 },
 });

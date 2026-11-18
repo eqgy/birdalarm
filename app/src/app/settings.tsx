@@ -1,7 +1,7 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
-import { Body, Label, Row, Screen, Title, Toggle, useTheme } from '@/components/ui';
+import { Body, Label, Row, Screen, Title, Toggle, useTheme, Press } from '@/components/ui';
 import { REGION_NAMES } from '@/data/birds';
 import { useStore } from '@/state/store';
 import { LOOKS, TYPES, themeFor } from '@/theme';
@@ -20,7 +20,7 @@ export default function SettingsScreen() {
         const t = themeFor(current.id, type.id);
         const selected = type.id === currentType.id;
         return (
-          <Pressable
+          <Press
             key={type.id}
             onPress={() => update({ type: type.id })}
             accessibilityRole="radio"
@@ -39,7 +39,7 @@ export default function SettingsScreen() {
             <View style={[styles.radio, { borderColor: C.dim }]}>
               {selected && <View style={[styles.radioDot, { backgroundColor: C.text }]} />}
             </View>
-          </Pressable>
+          </Press>
         );
       })}
 
@@ -47,7 +47,7 @@ export default function SettingsScreen() {
       {LOOKS.map((look) => {
         const selected = look.id === current.id;
         return (
-          <Pressable
+          <Press
             key={look.id}
             onPress={() => update({ look: look.id })}
             accessibilityRole="radio"
@@ -62,7 +62,7 @@ export default function SettingsScreen() {
             <View style={[styles.radio, { borderColor: C.dim }]}>
               {selected && <View style={[styles.radioDot, { backgroundColor: C.text }]} />}
             </View>
-          </Pressable>
+          </Press>
         );
       })}
 
@@ -74,14 +74,14 @@ export default function SettingsScreen() {
         ].map((opt) => {
           const selected = settings.region === opt.id;
           return (
-            <Pressable
+            <Press
               key={opt.id}
               onPress={() => update({ region: opt.id })}
               accessibilityRole="radio"
               accessibilityState={{ selected }}
               style={[styles.chip, { backgroundColor: selected ? C.fillOn : C.fill }]}>
               <Text style={{ fontFamily: SANS, fontSize: 14, color: selected ? C.onFill : C.dim }}>{opt.name}</Text>
-            </Pressable>
+            </Press>
           );
         })}
       </View>
