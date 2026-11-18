@@ -16,6 +16,14 @@ export interface LibraryBird {
   scientificName: string;
   regions: string[];
   fact: string;
+  /** Common name of the bird's family, e.g. "Thrushes". */
+  family?: string;
+  /** Size compared with a sparrow, robin or crow. */
+  size?: string;
+  /** Where to look for it. */
+  habitat?: string;
+  /** What its song sounds like. */
+  listen?: string;
 }
 
 export interface PhotoCredit {
@@ -23,6 +31,8 @@ export interface PhotoCredit {
   license: string;
   source: string;
   file: string;
+  /** Where the bird sits across the photo, 0 = left edge, 1 = right edge. Used to aim tall crops. */
+  focusX?: number;
 }
 
 export const BIRDS: LibraryBird[] = birdList;
