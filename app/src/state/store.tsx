@@ -1,3 +1,4 @@
+import type React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { AppState } from 'react-native';
@@ -7,6 +8,8 @@ import type { AlarmRule } from '@shared/types';
 
 import { birdsFor, detectRegion, type LibraryBird } from '@/data/birds';
 import { DEFAULT_LOOK, DEFAULT_TYPE } from '@/theme';
+
+import { useAlarmSync, type AlarmSyncStatus } from './alarm-sync';
 
 const KEY = 'dawn-chorus/v1';
 
@@ -42,9 +45,15 @@ interface Store {
   update: (patch: Partial<Settings>) => void;
   updateRule: (patch: Partial<AlarmRule>) => void;
   toggleBlocked: (id: string) => void;
+  /** Whether the phone's real alarms match the queue. */
+  alarmSync: AlarmSyncStatus;
+  retryAlarmSync: () => void;
 }
 
-const Ctx = createContext<Store | null>(null);
+// Kept on globalThis so that if the bundler ever loads this file twice (the web dev server's
+// lazy route bundles can), every copy shares one context instead of throwing "StoreProvider missing".
+const g = globalThis as { __dawnChorusStore?: React.Context<Store | null> };
+const Ctx = (g.__dawnChorusStore ??= createContext<Store | null>(null));
 
 function timeZone(): string {
   try {
@@ -118,6 +127,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     return () => sub.remove();
   }, [commit]);
 
+  const sync = useAlarmSync(queue.upcoming, ready);
+
   const store = useMemo<Store>(
     () => ({
       ready,
@@ -131,13 +142,15 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         const s = latest.current.settings;
         commit({ ...s, rule: { ...s.rule, ...patch } });
       },
+      alarmSync: sync.status,
+      retryAlarmSync: sync.retry,
       toggleBlocked: (id) => {
         const s = latest.current.settings;
         const blocked = s.blocked.includes(id) ? s.blocked.filter((b) => b !== id) : [...s.blocked, id];
         commit({ ...s, blocked });
       },
     }),
-    [ready, settings, queue, region, detected, library, commit],
+    [ready, settings, queue, region, detected, library, commit, sync.status, sync.retry],
   );
 
   return <Ctx.Provider value={store}>{children}</Ctx.Provider>;

@@ -29,7 +29,7 @@ function Stepper({ value, onStep, label }: { value: string; onStep: (d: number) 
 }
 
 export default function AlarmsScreen() {
-  const { settings, queue, updateRule } = useStore();
+  const { settings, queue, updateRule, alarmSync, retryAlarmSync } = useStore();
   const { C, SERIF, SANS, ds } = useTheme();
   const { rule } = settings;
   const next = queue.upcoming[0];
@@ -96,9 +96,22 @@ export default function AlarmsScreen() {
         )}
       </View>
 
-      <Body style={{ marginTop: 32, fontSize: 13, lineHeight: 19, color: C.faint }}>
-        Preview build: this plans your mornings but can&apos;t ring yet. Ringing needs the full app, not Expo Go.
-      </Body>
+      <View style={{ marginTop: 32, gap: 10 }}>
+        <Body style={{ fontSize: 13, lineHeight: 19, color: alarmSync.kind === 'ok' ? C.dim : C.faint }}>
+          {alarmSync.kind === 'unavailable' &&
+            "Preview: this plans your mornings but can't ring. Ringing needs the installed iPhone app, not Expo Go."}
+          {alarmSync.kind === 'syncing' && 'Setting your alarms on this phone...'}
+          {alarmSync.kind === 'ok' && `${alarmSync.count} alarms are set on this phone.`}
+          {alarmSync.kind === 'denied' &&
+            'Dawn Chorus is not allowed to set alarms. Turn it on in Settings > Apps > Dawn Chorus, then come back.'}
+          {alarmSync.kind === 'error' && `Couldn't set alarms: ${alarmSync.message}`}
+        </Body>
+        {(alarmSync.kind === 'denied' || alarmSync.kind === 'error') && (
+          <Pressable onPress={retryAlarmSync} style={[styles.retry, { backgroundColor: C.fillOn }]}>
+            <Text style={{ fontFamily: SANS, fontSize: 14, color: C.onFill }}>Try again</Text>
+          </Pressable>
+        )}
+      </View>
     </Screen>
   );
 }
@@ -110,6 +123,7 @@ const styles = StyleSheet.create({
   stepGlyph: { fontSize: 26, lineHeight: 30 },
   digits: { fontVariant: ['tabular-nums'], minWidth: 96, textAlign: 'center' },
   colon: { lineHeight: 70 },
+  retry: { alignSelf: 'flex-start', paddingVertical: 10, paddingHorizontal: 18, borderRadius: 20 },
   days: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12 },
   day: { width: 38, height: 38, borderRadius: 19, alignItems: 'center', justifyContent: 'center' },
 });

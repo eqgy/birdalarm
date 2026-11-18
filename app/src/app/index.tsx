@@ -1,9 +1,10 @@
+import { Image } from 'expo-image';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { lastFired } from '@shared/queue';
 
 import { Body, FadeIn, Label, Screen, useTheme } from '@/components/ui';
-import { birdById } from '@/data/birds';
+import { birdById, photoFor } from '@/data/birds';
 import { useStore } from '@/state/store';
 
 export default function TodayScreen() {
@@ -15,10 +16,25 @@ export default function TodayScreen() {
   const woke = birdById(lastFired(queue)?.birdId);
   const dayNumber = Math.floor(Date.now() / 86_400_000);
   const bird = woke ?? library[dayNumber % library.length]!;
+  const photo = photoFor(bird.id);
 
   return (
     <Screen scroll={false} animate={false}>
       <View style={styles.center}>
+        {photo && (
+          <FadeIn style={styles.piece}>
+            <Image
+              source={photo.source}
+              style={[styles.photo, { borderColor: C.line }]}
+              contentFit="cover"
+              transition={600}
+              accessibilityLabel={`Photo of a ${bird.commonName}`}
+            />
+            <Text style={[styles.credit, { color: C.faint, fontFamily: SANS }]} numberOfLines={1}>
+              Photo: {photo.credit.artist}, {photo.credit.license}
+            </Text>
+          </FadeIn>
+        )}
         <FadeIn style={styles.piece}>
           <Label>{woke ? 'Who woke you up' : "Today's bird"}</Label>
         </FadeIn>
@@ -48,11 +64,13 @@ export default function TodayScreen() {
 const styles = StyleSheet.create({
   center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   piece: { alignItems: 'center' },
+  photo: { width: 200, height: 200, borderRadius: 100, borderWidth: 1 },
+  credit: { fontSize: 10, marginTop: 8, marginBottom: 22, maxWidth: 260 },
   name: { textAlign: 'center', marginTop: 18 },
   sci: { marginTop: 10 },
-  fact: { textAlign: 'center', marginTop: 28, maxWidth: 340 },
+  fact: { textAlign: 'center', marginTop: 22, maxWidth: 340 },
   play: {
-    marginTop: 44,
+    marginTop: 32,
     width: 64,
     height: 64,
     borderRadius: 32,
