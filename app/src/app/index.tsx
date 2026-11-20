@@ -22,7 +22,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { lastFired } from '@shared/queue';
 
 import { Body, FadeIn, Label, TAB_BAR_HEIGHT, useTheme, Press } from '@/components/ui';
-import { birdById, birdByName, familyMates, lookalikePhoto, photoFor, recordingFor, type LibraryBird } from '@/data/birds';
+import { birdById, birdByName, birdOfDay, familyMates, localDayNumber, lookalikePhoto, photoFor, recordingFor, type LibraryBird } from '@/data/birds';
 import { useStore } from '@/state/store';
 
 const NATIVE = Platform.OS !== 'web';
@@ -400,12 +400,12 @@ export default function TodayScreen() {
   useFocusEffect(
     useCallback(() => () => navigation.setParams({ bird: undefined } as never), [navigation]),
   );
-  const [dayNumber] = useState(() => Math.floor(Date.now() / 86_400_000));
+  const [dayNumber] = useState(() => localDayNumber());
   if (!ready) return <View style={{ flex: 1 }} />;
 
   // The bird that actually woke you, if an alarm has rung; otherwise a bird of the day.
   const woke = birdById(lastFired(queue)?.birdId);
-  const todays = woke ?? library[dayNumber % library.length]!;
+  const todays = woke ?? birdOfDay(dayNumber, library);
   // A bird opened from the Birds list or a link on this page.
   const picked = birdById(params.bird);
   const bird = picked ?? todays;

@@ -10,6 +10,7 @@ import { birdsFor, detectRegion, type LibraryBird } from '@/data/birds';
 import { DEFAULT_LOOK, DEFAULT_TYPE } from '@/theme';
 
 import { useAlarmSync, type AlarmSyncStatus } from './alarm-sync';
+import { useWidgetSync } from './widget-sync';
 
 const KEY = 'dawn-chorus/v1';
 
@@ -140,6 +141,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   }, [commit]);
 
   const sync = useAlarmSync(queue.upcoming, ready, settings.snoozeMinutes);
+  useWidgetSync(queue, library, ready);
 
   const store = useMemo<Store>(
     () => ({

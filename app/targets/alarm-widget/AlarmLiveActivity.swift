@@ -24,6 +24,7 @@ private let cream = Color(red: 0.97, green: 0.93, blue: 0.86)
 struct DawnChorusWidgets: WidgetBundle {
   var body: some Widget {
     AlarmLiveActivity()
+    BirdWidget()
   }
 }
 

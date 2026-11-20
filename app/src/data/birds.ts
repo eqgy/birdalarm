@@ -155,3 +155,13 @@ export function recordingFor(id: string): (Recording & { source: number }) | und
 
 /** Every recording credit, in library order, for the Credits screen. */
 export const RECORDING_CREDITS = BIRDS.filter((b) => recordings[b.id]).map((b) => ({ bird: b.commonName, ...recordings[b.id]! }));
+
+/** Days since 1970 in the phone's own time zone, so "today's bird" changes at local midnight. */
+export function localDayNumber(ms: number = Date.now()): number {
+  return Math.floor((ms - new Date(ms).getTimezoneOffset() * 60_000) / 86_400_000);
+}
+
+/** The bird of the day for a local day number, when no alarm has picked one. */
+export function birdOfDay(day: number, library: LibraryBird[]): LibraryBird {
+  return library[((day % library.length) + library.length) % library.length]!;
+}

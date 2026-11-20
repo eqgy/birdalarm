@@ -45,6 +45,11 @@
             ]
           }
         ]
+      },
+      "entitlements": {
+        "com.apple.security.application-groups": [
+          "group.io.github.dawnchorus.app"
+        ]
       }
     },
     "android": {

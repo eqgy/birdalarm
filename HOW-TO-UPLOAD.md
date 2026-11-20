@@ -100,6 +100,7 @@ Their iPhone needs **iOS 26 or newer**. The alarms use Apple's AlarmKit, which o
 - Set an alarm for 3 minutes from now and lock the phone. It should ring with a bird song, and show Stop and Snooze.
 - Tap **Snooze**: the Lock Screen should show the snooze countdown with the bird's name and a Stop button.
 - On **Today**, the play button plays the bird's song.
+- **Lock Screen widget:** long-press the Lock Screen, tap **Customize**, then **Lock Screen**, tap the widget area under the clock and pick **Dawn Chorus**. It shows today's bird and the next alarm. (There's a small Home Screen version too.)
 
 ## What you don't need for TestFlight
 
@@ -113,5 +114,6 @@ When your kid sends you a new version of this folder, repeat steps 3 and 4 (and 
 
 - **The build fails with a Swift error** (in `DawnAlarmModule.swift`, `AlarmLiveActivity.swift` or `StopAlarmIntent.swift`): the alarm code was written on Windows and has never been compiled on a Mac, so the first build may hit a small error. Open the build link, copy the error text, and send it to your kid. They'll send back a fixed folder.
 - **"Missing ios.appleTeamId"** or signing errors about **AlarmWidget**: check step 1, then run step 3 again.
+- **An error about App Groups** (`group.io.github.dawnchorus.app`): the app and its widget share data through an App Group. EAS normally sets it up; if not, at https://developer.apple.com/account/resources/identifiers create that App Group and turn it on for both `io.github.dawnchorus.app` and `io.github.dawnchorus.app.alarmwidget`, then build again.
 - **Certificate or permission errors:** you need to be the account holder or an Admin on the Apple Developer team.
 - **"You've reached your build limit":** Expo's free plan has a monthly limit; it resets at the start of the month.
