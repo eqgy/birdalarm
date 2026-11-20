@@ -19,6 +19,7 @@ export const AUDIO_FILES: Record<string, number> = {
   'baltimore-oriole': require('../../assets/audio/baltimore-oriole.m4a'),
   'rose-breasted-grosbeak': require('../../assets/audio/rose-breasted-grosbeak.m4a'),
   'red-eyed-vireo': require('../../assets/audio/red-eyed-vireo.m4a'),
+  'eastern-towhee': require('../../assets/audio/eastern-towhee.m4a'),
   'gray-catbird': require('../../assets/audio/gray-catbird.m4a'),
   'brown-thrasher': require('../../assets/audio/brown-thrasher.m4a'),
   'western-meadowlark': require('../../assets/audio/western-meadowlark.m4a'),

@@ -285,6 +285,21 @@
     "sourceUrl": "https://xeno-canto.org/991130"
   },
   {
+    "id": "eastern-towhee",
+    "commonName": "Eastern Towhee",
+    "scientificName": "Pipilo erythrophthalmus",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "Its song is remembered as \"drink-your-tea!\", the last note a quick trill.",
+    "alarmFile": "eastern-towhee.caf",
+    "playbackFile": "eastern-towhee.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "xcNumber": "XC320489",
+    "sourceUrl": "https://xeno-canto.org/320489"
+  },
+  {
     "id": "gray-catbird",
     "commonName": "Gray Catbird",
     "scientificName": "Dumetella carolinensis",

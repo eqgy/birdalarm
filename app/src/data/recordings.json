@@ -189,6 +189,16 @@
     "sourceUrl": "https://xeno-canto.org/991130",
     "commonsUrl": ""
   },
+  "eastern-towhee": {
+    "alarmFile": "eastern-towhee.caf",
+    "playbackFile": "eastern-towhee.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC320489",
+    "sourceUrl": "https://xeno-canto.org/320489",
+    "commonsUrl": ""
+  },
   "gray-catbird": {
     "alarmFile": "gray-catbird.caf",
     "playbackFile": "gray-catbird.m4a",

@@ -25,6 +25,7 @@ Bird photos come from Wikimedia Commons; their credits are in `app/src/data/phot
 | Baltimore Oriole | Jonathon Jongsma | CC BY-SA 4.0 | [XC178046](https://xeno-canto.org/178046) |
 | Rose-breasted Grosbeak | Jonathon Jongsma | CC BY-SA 3.0 | [XC134880](https://xeno-canto.org/134880) |
 | Red-eyed Vireo | Doug Hynes | CC BY-SA 4.0 | [XC991130](https://xeno-canto.org/991130) |
+| Eastern Towhee | Jonathon Jongsma | CC BY-SA 4.0 | [XC320489](https://xeno-canto.org/320489) |
 | Gray Catbird | Jonathon Jongsma | CC BY-SA 4.0 | [XC1001763](https://xeno-canto.org/1001763) |
 | Brown Thrasher | Jonathon Jongsma | CC BY-SA 4.0 | [XC320485](https://xeno-canto.org/320485) |
 | Western Meadowlark | Jonathon Jongsma | CC BY-SA 4.0 | [XC254455](https://xeno-canto.org/254455) |
