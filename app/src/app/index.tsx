@@ -22,7 +22,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { lastFired } from '@shared/queue';
 
 import { Body, FadeIn, Label, TAB_BAR_HEIGHT, useTheme, Press } from '@/components/ui';
-import { birdById, birdByName, birdOfDay, familyMates, localDayNumber, lookalikePhoto, photoFor, recordingFor, type LibraryBird } from '@/data/birds';
+import { birdById, birdByName, birdOfDay, familyMates, localDateKey, lookalikePhoto, photoFor, recordingFor, type LibraryBird } from '@/data/birds';
 import { useStore } from '@/state/store';
 
 const NATIVE = Platform.OS !== 'web';
@@ -393,19 +393,19 @@ function SongPlayer({ bird, shade, still }: { bird: LibraryBird; shade: string; 
 }
 
 export default function TodayScreen() {
-  const { ready, queue, library } = useStore();
+  const { ready, queue, library, settings } = useStore();
   const params = useLocalSearchParams<{ bird?: string }>();
   const navigation = useNavigation();
   // Leaving the tab forgets the opened bird, so Today shows today's bird when you come back.
   useFocusEffect(
     useCallback(() => () => navigation.setParams({ bird: undefined } as never), [navigation]),
   );
-  const [dayNumber] = useState(() => localDayNumber());
+  const [today] = useState(() => localDateKey());
   if (!ready) return <View style={{ flex: 1 }} />;
 
   // The bird that actually woke you, if an alarm has rung; otherwise a bird of the day.
   const woke = birdById(lastFired(queue)?.birdId);
-  const todays = woke ?? birdOfDay(dayNumber, library);
+  const todays = woke ?? birdOfDay(today, library, settings.blocked);
   // A bird opened from the Birds list or a link on this page.
   const picked = birdById(params.bird);
   const bird = picked ?? todays;

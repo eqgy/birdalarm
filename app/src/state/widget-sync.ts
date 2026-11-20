@@ -1,38 +1,56 @@
 /**
- * Shares what the Lock Screen widget shows: today's bird (and the next few days', so it
- * changes at midnight even if the app isn't opened) and the upcoming alarm times.
- * Written as JSON to the App Group the widget reads (targets/alarm-widget/BirdWidget.swift).
+ * Shares what the Lock Screen widget shows. For today and the next 7 days: the date's bird,
+ * a teaser line and hint for the evening before, the sunset time and the first alarm of the
+ * day. The widget (targets/alarm-widget/BirdWidget.swift) then shows:
+ *   - from the morning alarm (or 6 am) to sunset: the bird that woke you / today's bird
+ *   - from sunset until the next morning's alarm: a mystery teaser for that bird
+ * so it stays right without the app running. Written as JSON to the shared App Group.
  * In Expo Go and on the web ExtensionStorage does nothing.
  */
 import { ExtensionStorage } from '@bacons/apple-targets';
 import { useEffect } from 'react';
 
-import { lastFired, type QueueState } from '@shared/queue';
+import { dayNumber } from '@shared/daily';
+import type { QueueState } from '@shared/queue';
 
-import { birdById, birdOfDay, localDayNumber, type LibraryBird } from '@/data/birds';
+import { birdOfDay, localDateKey, type LibraryBird } from '@/data/birds';
+import { sunsetMs } from '@/data/sun';
+import { hintFor, teaserFor } from '@/data/teasers';
 
 export const APP_GROUP = 'group.io.github.dawnchorus.app';
 const storage = new ExtensionStorage(APP_GROUP);
 
-const pad = (n: number) => String(n).padStart(2, '0');
-const localDate = (d: Date) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
-
-export function useWidgetSync(queue: QueueState, library: LibraryBird[], ready: boolean) {
-  const woke = birdById(lastFired(queue)?.birdId);
-  const alarms = queue.upcoming.slice(0, 20).map((a) => Math.round(a.fireAt / 1000));
-  const sig = `${woke?.id}|${library.length}|${alarms.join(',')}`;
+export function useWidgetSync(
+  queue: QueueState,
+  library: LibraryBird[],
+  blocked: string[],
+  region: string | undefined,
+  ready: boolean,
+) {
+  const alarms = [...queue.fired.slice(-3), ...queue.upcoming.slice(0, 20)];
+  const sig = `${library.length}|${blocked.join(',')}|${region}|${alarms.map((a) => `${a.localDate}@${a.fireAt}`).join(',')}`;
 
   useEffect(() => {
     if (!ready || !library.length) return;
-    const today = localDayNumber();
     const days = Array.from({ length: 8 }, (_, i) => {
       const date = new Date();
       date.setDate(date.getDate() + i);
-      const bird = i === 0 && woke ? woke : birdOfDay(today + i, library);
-      return { day: localDate(date), name: bird.commonName, sci: bird.scientificName, woke: i === 0 && woke ? 1 : 0 };
+      const key = localDateKey(date);
+      const n = dayNumber(key);
+      const bird = birdOfDay(key, library, blocked);
+      const first = alarms.filter((a) => a.localDate === key).map((a) => a.fireAt).sort((x, y) => x - y)[0];
+      return {
+        day: key,
+        name: bird.commonName,
+        sci: bird.scientificName,
+        teaser: teaserFor(n),
+        hint: hintFor(n, bird),
+        sunset: Math.round(sunsetMs(date.getFullYear(), date.getMonth() + 1, date.getDate(), region) / 1000),
+        alarm: first ? Math.round(first / 1000) : 0,
+      };
     });
     try {
-      storage.set('widget', JSON.stringify({ days, alarms }));
+      storage.set('widget', JSON.stringify({ days, alarms: queue.upcoming.slice(0, 20).map((a) => Math.round(a.fireAt / 1000)) }));
       ExtensionStorage.reloadWidget();
     } catch {}
     // `sig` captures everything the payload depends on.

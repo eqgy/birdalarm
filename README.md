@@ -8,7 +8,7 @@ Status: ready for its first iPhone build. 69 birds with real songs and photos, m
 
 | Path | What | State |
 |---|---|---|
-| `shared/` | Plain TypeScript: bird rotation, schedule math, the rolling 14-alarm queue | Done, 28 tests |
+| `shared/` | Plain TypeScript: bird of the day, schedule math, the rolling alarm queue | Done, 36 tests |
 | `pipeline/` | License checker (7 tests), photo fetchers (Wikimedia Commons), audio converter (`fetch_audio.py`), icon generator | Done |
 | `app/` | Expo (React Native) app: Today, Alarm, Birds, Settings, Credits; 69 birds with photos, lookalikes, multiple alarms with snooze | Preview works in Expo Go |
 | `app/modules/dawn-alarm/` | Swift, AlarmKit (iOS 26+) | Written, not yet compiled |
@@ -36,7 +36,8 @@ python pipeline/check_birds.py birds.json
 
 ## How the alarm logic works
 
-- **Rotation** (`shared/src/rotation.ts`): the library is shuffled into a deck; one bird is dealt per alarm; no repeats until the deck runs out; a new deck never starts with the bird that ended the last one. Blocked or removed birds are skipped.
+- **Bird of the day** (`shared/src/daily.ts`): the bird depends only on the date. The bird list is put in one fixed shuffled order (same seed on every phone) and each date takes the next bird, so everyone with the same region (or Worldwide) hears the same bird all day, with no repeats until every bird has had a turn. A bird you've switched off is skipped on your phone only. Every alarm that day, backups included, plays it.
+- **Rotation** (`shared/src/rotation.ts`, used only when no date bird is given): the library is shuffled into a deck; one bird is dealt per alarm; no repeats until the deck runs out; a new deck never starts with the bird that ended the last one. Blocked or removed birds are skipped.
 - **Schedule** (`shared/src/schedule.ts`): turns "weekdays 6:45" into exact instants in an explicit time zone. On the spring-forward day an alarm in the missing hour rings an hour later (2:30 → 3:30); on the fall-back day an ambiguous time rings at its first occurrence.
 - **Queue** (`shared/src/queue.ts`): `planTopUp()` is a pure function the app calls every time it opens. It returns the native calls to make (`schedule`, `cancel`) to keep the next 14 alarms per rule scheduled, each with its own bird, and records which bird each alarm played for the morning card. Unchanged alarms are left alone, so opening the app twice does nothing.
 - **Backup alarms** (also `queue.ts`): after the 14 main alarms, 14 more one-off alarms are scheduled with a single backup bird, so you still wake up for 28 days if the app is never opened. There's no repeating alarm, so nothing rings twice. When a backup day moves into the main 14-day window it's cancelled and rescheduled under the same id with a dealt bird; the native module must apply cancels before schedules. If you block the backup bird, the first unblocked bird is used instead.

@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { AppState } from 'react-native';
 
+import { dailyBird } from '@shared/daily';
 import { emptyQueue, planTopUp, type QueueState } from '@shared/queue';
 import type { AlarmRule } from '@shared/types';
 
@@ -90,6 +91,8 @@ function topUp(queue: QueueState, settings: Settings, library: LibraryBird[]): Q
     blocked,
     rng: Math.random,
     backupBirdId: ids[0],
+    // Everyone hears the same bird on the same date (shared/src/daily.ts).
+    birdForDate: (date) => dailyBird(date, ids, blocked),
   }).state;
 }
 
@@ -141,7 +144,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   }, [commit]);
 
   const sync = useAlarmSync(queue.upcoming, ready, settings.snoozeMinutes);
-  useWidgetSync(queue, library, ready);
+  useWidgetSync(queue, library, settings.blocked, region, ready);
 
   const store = useMemo<Store>(
     () => ({

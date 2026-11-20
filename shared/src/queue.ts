@@ -38,6 +38,11 @@ export interface TopUpContext {
   backupBirdId?: string;
   /** Backup alarms per rule after the main queue. */
   backupCount?: number;
+  /**
+   * The bird for a calendar date (see daily.ts). When given, every alarm (main and backup)
+   * plays that date's bird instead of a dealt one, so everyone hears the same bird that day.
+   */
+  birdForDate?: (localDate: string) => string | undefined;
 }
 
 export interface TopUpPlan {
@@ -80,9 +85,12 @@ export function planTopUp(prev: QueueState, rules: readonly AlarmRule[], ctx: To
   const cancel: string[] = [];
   for (const a of stillUpcoming) {
     const w = wanted.get(a.id);
-    const birdOk = w?.backup
-      ? a.birdId === backupBird
-      : library.has(a.birdId) && !ctx.blocked.has(a.birdId);
+    const dated = ctx.birdForDate?.(a.localDate);
+    const birdOk = dated !== undefined
+      ? a.birdId === dated
+      : w?.backup
+        ? a.birdId === backupBird
+        : library.has(a.birdId) && !ctx.blocked.has(a.birdId);
     if (w && w.fireAt === a.fireAt && w.backup === !!a.backup && birdOk) {
       keep.push(a);
       wanted.delete(a.id);
@@ -96,7 +104,10 @@ export function planTopUp(prev: QueueState, rules: readonly AlarmRule[], ctx: To
   const schedule: ScheduledAlarm[] = [];
   for (const [id, w] of [...wanted].sort((x, y) => x[1].fireAt - y[1].fireAt)) {
     const base = { id, ruleId: w.ruleId, fireAt: w.fireAt, localDate: w.localDate };
-    if (w.backup) {
+    const dated = ctx.birdForDate?.(w.localDate);
+    if (dated !== undefined) {
+      schedule.push({ ...base, birdId: dated, ...(w.backup ? { backup: true } : {}) });
+    } else if (w.backup) {
       schedule.push({ ...base, birdId: backupBird!, backup: true });
     } else {
       const dealt = dealBird(deck, ctx.libraryIds, ctx.blocked, ctx.rng);

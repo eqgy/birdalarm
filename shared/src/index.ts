@@ -2,6 +2,7 @@ export * from "./types";
 export * from "./rotation";
 export * from "./schedule";
 export * from "./queue";
+export * from "./daily";
 
 /** The interface both native alarm modules (and the web stub) implement. */
 export interface AlarmModule {

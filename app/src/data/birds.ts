@@ -6,6 +6,8 @@
  */
 import { getLocales } from 'expo-localization';
 
+import { dailyBird } from '@shared/daily';
+
 import { AUDIO_FILES } from './audio-files';
 import birdList from './birds.json';
 import { LOOKALIKE_FILES } from './lookalike-files';
@@ -156,12 +158,18 @@ export function recordingFor(id: string): (Recording & { source: number }) | und
 /** Every recording credit, in library order, for the Credits screen. */
 export const RECORDING_CREDITS = BIRDS.filter((b) => recordings[b.id]).map((b) => ({ bird: b.commonName, ...recordings[b.id]! }));
 
-/** Days since 1970 in the phone's own time zone, so "today's bird" changes at local midnight. */
-export function localDayNumber(ms: number = Date.now()): number {
-  return Math.floor((ms - new Date(ms).getTimezoneOffset() * 60_000) / 86_400_000);
+/** "YYYY-MM-DD" for a moment, in the phone's own time zone. */
+export function localDateKey(d: Date = new Date()): string {
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 }
 
-/** The bird of the day for a local day number, when no alarm has picked one. */
-export function birdOfDay(day: number, library: LibraryBird[]): LibraryBird {
-  return library[((day % library.length) + library.length) % library.length]!;
+/**
+ * The bird of the day for a date: the same for everyone with the same bird list (see
+ * shared/src/daily.ts), skipping birds you've switched off.
+ */
+export function birdOfDay(localDate: string, library: LibraryBird[], blocked: readonly string[] = []): LibraryBird {
+  const ids = library.map((b) => b.id);
+  const off = new Set(blocked.length >= ids.length ? [] : blocked);
+  return birdById(dailyBird(localDate, ids, off)) ?? library[0]!;
 }
