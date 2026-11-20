@@ -173,7 +173,11 @@ def download(url: str, xc: str) -> bytes:
 
 
 def ffmpeg(*args: str) -> None:
-    subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", *args], check=True)
+    # -map_metadata -1 and -fflags +bitexact: drop the source file's tags (recording notes,
+    # download codes) and the encoder stamp. Credits live in CREDITS.md and recordings.json.
+    *head, out = args
+    subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", *head,
+                    "-map_metadata", "-1", "-fflags", "+bitexact", out], check=True)
 
 
 def make_files(src: Path, bid: str) -> None:
