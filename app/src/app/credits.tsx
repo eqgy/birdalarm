@@ -1,7 +1,7 @@
 import { Text } from 'react-native';
 
 import { Body, Label, Screen, Title, useTheme } from '@/components/ui';
-import { LOOKALIKE_CREDITS, PHOTO_CREDITS } from '@/data/birds';
+import { LOOKALIKE_CREDITS, PHOTO_CREDITS, RECORDING_CREDITS } from '@/data/birds';
 
 export default function CreditsScreen() {
   const { C, SANS } = useTheme();
@@ -9,10 +9,15 @@ export default function CreditsScreen() {
     <Screen>
       <Title>Credits</Title>
       <Label>Recordings</Label>
-      <Body style={{ marginTop: 8 }}>
-        No recordings are bundled yet. When they are, every one will be listed here with its recordist, its Creative
-        Commons license and its xeno-canto number.
+      <Body style={{ marginTop: 8, marginBottom: 6 }}>
+        From xeno-canto, via Wikimedia Commons, used under each recordist&apos;s Creative Commons license. Each is
+        trimmed, faded and evened out in loudness.
       </Body>
+      {RECORDING_CREDITS.map((r) => (
+        <Text key={r.bird} style={{ color: C.dim, fontFamily: SANS, fontSize: 13, lineHeight: 19, marginTop: 6 }}>
+          <Text style={{ color: C.text }}>{r.bird}</Text>: {r.recordist}, {r.licenseFull}, {r.xcNumber}
+        </Text>
+      ))}
       <Label style={{ marginTop: 28 }}>Photos</Label>
       <Body style={{ marginTop: 8, marginBottom: 6 }}>From Wikimedia Commons, used under each photographer&apos;s license.</Body>
       {PHOTO_CREDITS.map((p) => (

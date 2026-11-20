@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import type { ScheduledAlarm } from '@shared/types';
 
-import { birdById } from '@/data/birds';
+import { birdById, recordingFor } from '@/data/birds';
 
 import { DawnAlarm, type AlarmAuthorization } from '../../modules/dawn-alarm';
 
@@ -43,7 +43,8 @@ export function useAlarmSync(upcoming: ScheduledAlarm[], ready: boolean, snoozeM
         // Shown on the Live Activity while snoozing, after you've already heard it.
         birdName: birdById(a.birdId)?.commonName ?? 'Your bird',
         snoozeMinutes,
-        // Bundled bird recordings aren't in the app yet, so AlarmKit plays its default sound.
+        // The bird's own song; birds without a recording use the system alarm sound.
+        sound: recordingFor(a.birdId)?.alarmFile,
       })),
     )
       .then((count) => {

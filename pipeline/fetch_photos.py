@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import html
 import json
+import os
 import re
 import sys
 import time
@@ -25,7 +26,10 @@ ROOT = Path(__file__).resolve().parents[1]
 BIRDS = ROOT / "app/src/data/birds.json"
 OUT_DIR = ROOT / "app/assets/birds"
 CREDITS = ROOT / "app/src/data/photos.json"
-UA = "DawnChorusPhotoFetcher/0.1 (open-source birdsong alarm)"
+# Wikimedia asks automated tools to name a contact; without one, downloads get throttled.
+# Set WIKIMEDIA_CONTACT (an email or URL) in your environment; it is never written to the repo.
+_contact = os.environ.get("WIKIMEDIA_CONTACT", "").strip()
+UA = "DawnChorusFetcher/0.2 (open-source birdsong alarm" + (f"; {_contact}" if _contact else "") + ")"
 WIDTH = 800
 
 

@@ -9,6 +9,7 @@
  *   where to look, its size and its family.
  * - Specks of light float up through the scene. Everything holds still with Reduce Motion.
  */
+import { setAudioModeAsync, useAudioPlayer, useAudioPlayerStatus } from 'expo-audio';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router, useFocusEffect, useLocalSearchParams, useNavigation } from 'expo-router';
@@ -21,7 +22,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { lastFired } from '@shared/queue';
 
 import { Body, FadeIn, Label, TAB_BAR_HEIGHT, useTheme, Press } from '@/components/ui';
-import { birdById, birdByName, familyMates, lookalikePhoto, photoFor, type LibraryBird } from '@/data/birds';
+import { birdById, birdByName, familyMates, lookalikePhoto, photoFor, recordingFor, type LibraryBird } from '@/data/birds';
 import { useStore } from '@/state/store';
 
 const NATIVE = Platform.OS !== 'web';
@@ -331,6 +332,66 @@ function SizeScale({ size, source, focusX }: { size: string; source?: number; fo
   );
 }
 
+/** Play button for the bird's song, with the recordist credit beside it. */
+function SongPlayer({ bird, shade, still }: { bird: LibraryBird; shade: string; still: boolean }) {
+  const { C, SANS } = useTheme();
+  const rec = recordingFor(bird.id);
+  const player = useAudioPlayer(rec?.source ?? null);
+  const status = useAudioPlayerStatus(player);
+  // Play even with the ring switch on silent, like the alarm would.
+  useEffect(() => {
+    setAudioModeAsync({ playsInSilentMode: true }).catch(() => {});
+  }, []);
+  // Stop when you leave the page.
+  useFocusEffect(useCallback(() => () => player.pause(), [player]));
+  const playing = status.playing;
+  const toggle = () => {
+    if (playing) return player.pause();
+    if (status.didJustFinish || (status.duration > 0 && status.currentTime >= status.duration - 0.2)) player.seekTo(0);
+    player.play();
+  };
+  const progress = status.duration > 0 ? Math.min(1, status.currentTime / status.duration) : 0;
+  return (
+    <View style={styles.playRow}>
+      <View style={styles.playWrap}>
+        <Breath color={C.text} still={still || !rec || playing} />
+        <Press
+          disabled={!rec}
+          onPress={toggle}
+          accessibilityLabel={rec ? (playing ? 'Pause song' : `Play the ${bird.commonName}'s song`) : 'No recording yet'}
+          depth={0.9}
+          style={[styles.play, { borderColor: C.dim, backgroundColor: rgba(shade, 0.35), opacity: rec ? 1 : 0.4 }]}>
+          {playing ? (
+            <View style={styles.pause}>
+              <View style={[styles.pauseBar, { backgroundColor: C.text }]} />
+              <View style={[styles.pauseBar, { backgroundColor: C.text }]} />
+            </View>
+          ) : (
+            <View style={[styles.triangle, { borderLeftColor: C.text }]} />
+          )}
+        </Press>
+      </View>
+      <View style={{ flex: 1 }}>
+        {rec ? (
+          <>
+            <Text style={[styles.note, { color: C.dim, fontFamily: SANS }]}>
+              {playing ? 'Listening…' : 'Hear its song'}
+            </Text>
+            <View style={[styles.track, { backgroundColor: C.line }]}>
+              <View style={[styles.trackFill, { backgroundColor: C.text, width: `${progress * 100}%` }]} />
+            </View>
+            <Text style={[styles.note, { color: C.faint, fontFamily: SANS, marginTop: 6 }]}>
+              {rec.recordist} · {rec.xcNumber} · {rec.licenseFull}
+            </Text>
+          </>
+        ) : (
+          <Text style={[styles.note, { color: C.faint, fontFamily: SANS }]}>No recording for this bird yet</Text>
+        )}
+      </View>
+    </View>
+  );
+}
+
 export default function TodayScreen() {
   const { ready, queue, library } = useStore();
   const params = useLocalSearchParams<{ bird?: string }>();
@@ -399,17 +460,8 @@ function BirdScene({ bird, label, showBack }: { bird: LibraryBird; label: string
           <FadeIn delay={2000}>
             <Body style={[styles.fact, { color: C.text, opacity: 0.88 }]}>{bird.fact}</Body>
           </FadeIn>
-          <FadeIn delay={2800} style={styles.playRow}>
-            <View style={styles.playWrap}>
-              <Breath color={C.text} still={still} />
-              <Press
-                disabled
-                accessibilityLabel="Play recording (not available yet)"
-                style={[styles.play, { borderColor: C.dim, backgroundColor: rgba(shade, 0.35) }]}>
-                <View style={[styles.triangle, { borderLeftColor: C.text }]} />
-              </Press>
-            </View>
-            <Text style={[styles.note, { color: C.faint, fontFamily: SANS }]}>Song coming with the{'\n'}audio library</Text>
+          <FadeIn delay={2800}>
+            <SongPlayer bird={bird} shade={shade} still={still} />
           </FadeIn>
           <FadeIn delay={3400}>
             <MoreHint
@@ -544,6 +596,10 @@ const styles = StyleSheet.create({
     borderBottomColor: 'transparent',
   },
   note: { fontSize: 12, lineHeight: 17 },
+  pause: { flexDirection: 'row', gap: 5 },
+  pauseBar: { width: 4, height: 16, borderRadius: 2 },
+  track: { height: 2, borderRadius: 1, marginTop: 8, overflow: 'hidden', maxWidth: 220 },
+  trackFill: { height: 2 },
   more: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, marginTop: 34, paddingVertical: 8 },
   details: { marginTop: 28 },
   section: { borderTopWidth: StyleSheet.hairlineWidth, paddingVertical: 20 },

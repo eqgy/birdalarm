@@ -6,11 +6,13 @@
  */
 import { getLocales } from 'expo-localization';
 
+import { AUDIO_FILES } from './audio-files';
 import birdList from './birds.json';
 import { LOOKALIKE_FILES } from './lookalike-files';
 import lookalikeCredits from './lookalike-photos.json';
 import { PHOTO_FILES } from './photo-files';
 import photoCredits from './photos.json';
+import recordingList from './recordings.json';
 
 export interface LibraryBird {
   id: string;
@@ -127,3 +129,29 @@ export function lookalikePhoto(name: string): { source: number; credit: PhotoCre
 
 /** Credits for the lookalike photos, for the Credits screen. */
 export const LOOKALIKE_CREDITS = Object.values(lookalikeCreditMap).map((c) => ({ bird: c.name, ...c }));
+
+/** A xeno-canto recording, trimmed into an alarm sound and an in-app playback file. */
+export interface Recording {
+  /** Exact filename AlarmKit plays, bundled into the iPhone app by plugins/with-alarm-sounds.js. */
+  alarmFile: string;
+  playbackFile: string;
+  recordist: string;
+  /** CC0, CC BY or CC BY-SA. */
+  license: string;
+  /** With version, e.g. "CC BY-SA 4.0". */
+  licenseFull: string;
+  xcNumber: string;
+  sourceUrl: string;
+  commonsUrl: string;
+}
+const recordings: Record<string, Recording> = recordingList;
+
+/** The bird's recording and its playback file (for expo-audio), if it has one. */
+export function recordingFor(id: string): (Recording & { source: number }) | undefined {
+  const r = recordings[id];
+  const source = AUDIO_FILES[id];
+  return r && source ? { ...r, source } : undefined;
+}
+
+/** Every recording credit, in library order, for the Credits screen. */
+export const RECORDING_CREDITS = BIRDS.filter((b) => recordings[b.id]).map((b) => ({ bird: b.commonName, ...recordings[b.id]! }));

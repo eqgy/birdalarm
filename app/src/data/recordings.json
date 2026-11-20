@@ -1,0 +1,682 @@
+{
+  "american-robin": {
+    "alarmFile": "american-robin.caf",
+    "playbackFile": "american-robin.m4a",
+    "recordist": "Doug Hynes",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC570791",
+    "sourceUrl": "https://xeno-canto.org/570791",
+    "commonsUrl": ""
+  },
+  "northern-cardinal": {
+    "alarmFile": "northern-cardinal.caf",
+    "playbackFile": "northern-cardinal.m4a",
+    "recordist": "steve",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC797998",
+    "sourceUrl": "https://xeno-canto.org/797998",
+    "commonsUrl": ""
+  },
+  "black-capped-chickadee": {
+    "alarmFile": "black-capped-chickadee.caf",
+    "playbackFile": "black-capped-chickadee.m4a",
+    "recordist": "Doug Hynes",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC935615",
+    "sourceUrl": "https://xeno-canto.org/935615",
+    "commonsUrl": ""
+  },
+  "wood-thrush": {
+    "alarmFile": "wood-thrush.caf",
+    "playbackFile": "wood-thrush.m4a",
+    "recordist": "Philip Vanbergen",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC364559",
+    "sourceUrl": "https://xeno-canto.org/364559",
+    "commonsUrl": ""
+  },
+  "song-sparrow": {
+    "alarmFile": "song-sparrow.caf",
+    "playbackFile": "song-sparrow.m4a",
+    "recordist": "Ryan Douglas",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC1005250",
+    "sourceUrl": "https://xeno-canto.org/1005250",
+    "commonsUrl": ""
+  },
+  "carolina-wren": {
+    "alarmFile": "carolina-wren.caf",
+    "playbackFile": "carolina-wren.m4a",
+    "recordist": "Matthias Sirch",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC384609",
+    "sourceUrl": "https://xeno-canto.org/384609",
+    "commonsUrl": ""
+  },
+  "white-throated-sparrow": {
+    "alarmFile": "white-throated-sparrow.caf",
+    "playbackFile": "white-throated-sparrow.m4a",
+    "recordist": "Doug Hynes",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC993033",
+    "sourceUrl": "https://xeno-canto.org/993033",
+    "commonsUrl": ""
+  },
+  "hermit-thrush": {
+    "alarmFile": "hermit-thrush.caf",
+    "playbackFile": "hermit-thrush.m4a",
+    "recordist": "steve",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC801743",
+    "sourceUrl": "https://xeno-canto.org/801743",
+    "commonsUrl": ""
+  },
+  "blue-jay": {
+    "alarmFile": "blue-jay.caf",
+    "playbackFile": "blue-jay.m4a",
+    "recordist": "Doug Hynes",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC935610",
+    "sourceUrl": "https://xeno-canto.org/935610",
+    "commonsUrl": ""
+  },
+  "mourning-dove": {
+    "alarmFile": "mourning-dove.caf",
+    "playbackFile": "mourning-dove.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 3.0",
+    "xcNumber": "XC128006",
+    "sourceUrl": "https://xeno-canto.org/128006",
+    "commonsUrl": ""
+  },
+  "northern-mockingbird": {
+    "alarmFile": "northern-mockingbird.caf",
+    "playbackFile": "northern-mockingbird.m4a",
+    "recordist": "steve",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC884705",
+    "sourceUrl": "https://xeno-canto.org/884705",
+    "commonsUrl": ""
+  },
+  "house-wren": {
+    "alarmFile": "house-wren.caf",
+    "playbackFile": "house-wren.m4a",
+    "recordist": "radrat",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC558995",
+    "sourceUrl": "https://xeno-canto.org/558995",
+    "commonsUrl": ""
+  },
+  "tufted-titmouse": {
+    "alarmFile": "tufted-titmouse.caf",
+    "playbackFile": "tufted-titmouse.m4a",
+    "recordist": "steve",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC884288",
+    "sourceUrl": "https://xeno-canto.org/884288",
+    "commonsUrl": ""
+  },
+  "american-goldfinch": {
+    "alarmFile": "american-goldfinch.caf",
+    "playbackFile": "american-goldfinch.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC428425",
+    "sourceUrl": "https://xeno-canto.org/428425",
+    "commonsUrl": ""
+  },
+  "red-winged-blackbird": {
+    "alarmFile": "red-winged-blackbird.caf",
+    "playbackFile": "red-winged-blackbird.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 3.0",
+    "xcNumber": "XC137775",
+    "sourceUrl": "https://xeno-canto.org/137775",
+    "commonsUrl": ""
+  },
+  "eastern-bluebird": {
+    "alarmFile": "eastern-bluebird.caf",
+    "playbackFile": "eastern-bluebird.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC179669",
+    "sourceUrl": "https://xeno-canto.org/179669",
+    "commonsUrl": ""
+  },
+  "baltimore-oriole": {
+    "alarmFile": "baltimore-oriole.caf",
+    "playbackFile": "baltimore-oriole.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC178046",
+    "sourceUrl": "https://xeno-canto.org/178046",
+    "commonsUrl": ""
+  },
+  "rose-breasted-grosbeak": {
+    "alarmFile": "rose-breasted-grosbeak.caf",
+    "playbackFile": "rose-breasted-grosbeak.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 3.0",
+    "xcNumber": "XC134880",
+    "sourceUrl": "https://xeno-canto.org/134880",
+    "commonsUrl": ""
+  },
+  "red-eyed-vireo": {
+    "alarmFile": "red-eyed-vireo.caf",
+    "playbackFile": "red-eyed-vireo.m4a",
+    "recordist": "Doug Hynes",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC991130",
+    "sourceUrl": "https://xeno-canto.org/991130",
+    "commonsUrl": ""
+  },
+  "gray-catbird": {
+    "alarmFile": "gray-catbird.caf",
+    "playbackFile": "gray-catbird.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC1001763",
+    "sourceUrl": "https://xeno-canto.org/1001763",
+    "commonsUrl": ""
+  },
+  "brown-thrasher": {
+    "alarmFile": "brown-thrasher.caf",
+    "playbackFile": "brown-thrasher.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC320485",
+    "sourceUrl": "https://xeno-canto.org/320485",
+    "commonsUrl": ""
+  },
+  "western-meadowlark": {
+    "alarmFile": "western-meadowlark.caf",
+    "playbackFile": "western-meadowlark.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC254455",
+    "sourceUrl": "https://xeno-canto.org/254455",
+    "commonsUrl": ""
+  },
+  "swainsons-thrush": {
+    "alarmFile": "swainsons-thrush.caf",
+    "playbackFile": "swainsons-thrush.m4a",
+    "recordist": "Doug Hynes",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC613535",
+    "sourceUrl": "https://xeno-canto.org/613535",
+    "commonsUrl": ""
+  },
+  "veery": {
+    "alarmFile": "veery.caf",
+    "playbackFile": "veery.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 3.0",
+    "xcNumber": "XC138637",
+    "sourceUrl": "https://xeno-canto.org/138637",
+    "commonsUrl": ""
+  },
+  "ovenbird": {
+    "alarmFile": "ovenbird.caf",
+    "playbackFile": "ovenbird.m4a",
+    "recordist": "steve",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC797247",
+    "sourceUrl": "https://xeno-canto.org/797247",
+    "commonsUrl": ""
+  },
+  "yellow-warbler": {
+    "alarmFile": "yellow-warbler.caf",
+    "playbackFile": "yellow-warbler.m4a",
+    "recordist": "Andres Felipe Espinosa",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC688344",
+    "sourceUrl": "https://xeno-canto.org/688344",
+    "commonsUrl": ""
+  },
+  "common-yellowthroat": {
+    "alarmFile": "common-yellowthroat.caf",
+    "playbackFile": "common-yellowthroat.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 3.0",
+    "xcNumber": "XC137738",
+    "sourceUrl": "https://xeno-canto.org/137738",
+    "commonsUrl": ""
+  },
+  "indigo-bunting": {
+    "alarmFile": "indigo-bunting.caf",
+    "playbackFile": "indigo-bunting.m4a",
+    "recordist": "Matthias Sirch",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC384607",
+    "sourceUrl": "https://xeno-canto.org/384607",
+    "commonsUrl": ""
+  },
+  "chipping-sparrow": {
+    "alarmFile": "chipping-sparrow.caf",
+    "playbackFile": "chipping-sparrow.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC320440",
+    "sourceUrl": "https://xeno-canto.org/320440",
+    "commonsUrl": ""
+  },
+  "dark-eyed-junco": {
+    "alarmFile": "dark-eyed-junco.caf",
+    "playbackFile": "dark-eyed-junco.m4a",
+    "recordist": "steve",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC797245",
+    "sourceUrl": "https://xeno-canto.org/797245",
+    "commonsUrl": ""
+  },
+  "house-finch": {
+    "alarmFile": "house-finch.caf",
+    "playbackFile": "house-finch.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 3.0",
+    "xcNumber": "XC124078",
+    "sourceUrl": "https://xeno-canto.org/124078",
+    "commonsUrl": ""
+  },
+  "eastern-phoebe": {
+    "alarmFile": "eastern-phoebe.caf",
+    "playbackFile": "eastern-phoebe.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC178126",
+    "sourceUrl": "https://xeno-canto.org/178126",
+    "commonsUrl": ""
+  },
+  "white-crowned-sparrow": {
+    "alarmFile": "white-crowned-sparrow.caf",
+    "playbackFile": "white-crowned-sparrow.m4a",
+    "recordist": "radrat",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC553412",
+    "sourceUrl": "https://xeno-canto.org/553412",
+    "commonsUrl": ""
+  },
+  "western-tanager": {
+    "alarmFile": "western-tanager.caf",
+    "playbackFile": "western-tanager.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC254618",
+    "sourceUrl": "https://xeno-canto.org/254618",
+    "commonsUrl": ""
+  },
+  "barred-owl": {
+    "alarmFile": "barred-owl.caf",
+    "playbackFile": "barred-owl.m4a",
+    "recordist": "Doug Hynes",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC715195",
+    "sourceUrl": "https://xeno-canto.org/715195",
+    "commonsUrl": ""
+  },
+  "european-robin": {
+    "alarmFile": "european-robin.caf",
+    "playbackFile": "european-robin.m4a",
+    "recordist": "Benoît Van Hecke",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC527484",
+    "sourceUrl": "https://xeno-canto.org/527484",
+    "commonsUrl": ""
+  },
+  "common-blackbird": {
+    "alarmFile": "common-blackbird.caf",
+    "playbackFile": "common-blackbird.m4a",
+    "recordist": "Jochem verweij",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC902409",
+    "sourceUrl": "https://xeno-canto.org/902409",
+    "commonsUrl": ""
+  },
+  "song-thrush": {
+    "alarmFile": "song-thrush.caf",
+    "playbackFile": "song-thrush.m4a",
+    "recordist": "Benoît Van Hecke",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC527483",
+    "sourceUrl": "https://xeno-canto.org/527483",
+    "commonsUrl": ""
+  },
+  "eurasian-wren": {
+    "alarmFile": "eurasian-wren.caf",
+    "playbackFile": "eurasian-wren.m4a",
+    "recordist": "steve",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC815472",
+    "sourceUrl": "https://xeno-canto.org/815472",
+    "commonsUrl": ""
+  },
+  "common-chaffinch": {
+    "alarmFile": "common-chaffinch.caf",
+    "playbackFile": "common-chaffinch.m4a",
+    "recordist": "Latal",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC861317",
+    "sourceUrl": "https://xeno-canto.org/861317",
+    "commonsUrl": ""
+  },
+  "eurasian-blackcap": {
+    "alarmFile": "eurasian-blackcap.caf",
+    "playbackFile": "eurasian-blackcap.m4a",
+    "recordist": "steve",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC815301",
+    "sourceUrl": "https://xeno-canto.org/815301",
+    "commonsUrl": ""
+  },
+  "carolina-chickadee": {
+    "alarmFile": "carolina-chickadee.caf",
+    "playbackFile": "carolina-chickadee.m4a",
+    "recordist": "steve",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC870687",
+    "sourceUrl": "https://xeno-canto.org/870687",
+    "commonsUrl": ""
+  },
+  "white-breasted-nuthatch": {
+    "alarmFile": "white-breasted-nuthatch.caf",
+    "playbackFile": "white-breasted-nuthatch.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 3.0",
+    "xcNumber": "XC121070",
+    "sourceUrl": "https://xeno-canto.org/121070",
+    "commonsUrl": ""
+  },
+  "downy-woodpecker": {
+    "alarmFile": "downy-woodpecker.caf",
+    "playbackFile": "downy-woodpecker.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC320358",
+    "sourceUrl": "https://xeno-canto.org/320358",
+    "commonsUrl": ""
+  },
+  "red-bellied-woodpecker": {
+    "alarmFile": "red-bellied-woodpecker.caf",
+    "playbackFile": "red-bellied-woodpecker.m4a",
+    "recordist": "Ryan Douglas",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC872669",
+    "sourceUrl": "https://xeno-canto.org/872669",
+    "commonsUrl": ""
+  },
+  "northern-flicker": {
+    "alarmFile": "northern-flicker.caf",
+    "playbackFile": "northern-flicker.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 3.0",
+    "xcNumber": "XC104536",
+    "sourceUrl": "https://xeno-canto.org/104536",
+    "commonsUrl": ""
+  },
+  "cedar-waxwing": {
+    "alarmFile": "cedar-waxwing.caf",
+    "playbackFile": "cedar-waxwing.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 3.0",
+    "xcNumber": "XC142622",
+    "sourceUrl": "https://xeno-canto.org/142622",
+    "commonsUrl": ""
+  },
+  "american-crow": {
+    "alarmFile": "american-crow.caf",
+    "playbackFile": "american-crow.m4a",
+    "recordist": "Doug Hynes",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC1031083",
+    "sourceUrl": "https://xeno-canto.org/1031083",
+    "commonsUrl": ""
+  },
+  "common-grackle": {
+    "alarmFile": "common-grackle.caf",
+    "playbackFile": "common-grackle.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 3.0",
+    "xcNumber": "XC131091",
+    "sourceUrl": "https://xeno-canto.org/131091",
+    "commonsUrl": ""
+  },
+  "eastern-meadowlark": {
+    "alarmFile": "eastern-meadowlark.caf",
+    "playbackFile": "eastern-meadowlark.m4a",
+    "recordist": "Diana Doyle",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC700409",
+    "sourceUrl": "https://xeno-canto.org/700409",
+    "commonsUrl": ""
+  },
+  "scarlet-tanager": {
+    "alarmFile": "scarlet-tanager.caf",
+    "playbackFile": "scarlet-tanager.m4a",
+    "recordist": "steve",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC1145165",
+    "sourceUrl": "https://xeno-canto.org/1145165",
+    "commonsUrl": ""
+  },
+  "purple-finch": {
+    "alarmFile": "purple-finch.caf",
+    "playbackFile": "purple-finch.m4a",
+    "recordist": "Doug Hynes",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC935606",
+    "sourceUrl": "https://xeno-canto.org/935606",
+    "commonsUrl": ""
+  },
+  "ruby-throated-hummingbird": {
+    "alarmFile": "ruby-throated-hummingbird.caf",
+    "playbackFile": "ruby-throated-hummingbird.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 3.0",
+    "xcNumber": "XC109598",
+    "sourceUrl": "https://xeno-canto.org/109598",
+    "commonsUrl": ""
+  },
+  "killdeer": {
+    "alarmFile": "killdeer.caf",
+    "playbackFile": "killdeer.m4a",
+    "recordist": "Doug Hynes",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC1032639",
+    "sourceUrl": "https://xeno-canto.org/1032639",
+    "commonsUrl": ""
+  },
+  "great-horned-owl": {
+    "alarmFile": "great-horned-owl.caf",
+    "playbackFile": "great-horned-owl.m4a",
+    "recordist": "Michael & Katie LaTour",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC450919",
+    "sourceUrl": "https://xeno-canto.org/450919",
+    "commonsUrl": ""
+  },
+  "eastern-wood-pewee": {
+    "alarmFile": "eastern-wood-pewee.caf",
+    "playbackFile": "eastern-wood-pewee.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 3.0",
+    "xcNumber": "XC136047",
+    "sourceUrl": "https://xeno-canto.org/136047",
+    "commonsUrl": ""
+  },
+  "eastern-kingbird": {
+    "alarmFile": "eastern-kingbird.caf",
+    "playbackFile": "eastern-kingbird.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 3.0",
+    "xcNumber": "XC134875",
+    "sourceUrl": "https://xeno-canto.org/134875",
+    "commonsUrl": ""
+  },
+  "spotted-towhee": {
+    "alarmFile": "spotted-towhee.caf",
+    "playbackFile": "spotted-towhee.m4a",
+    "recordist": "Diana Doyle",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC717736",
+    "sourceUrl": "https://xeno-canto.org/717736",
+    "commonsUrl": ""
+  },
+  "stellers-jay": {
+    "alarmFile": "stellers-jay.caf",
+    "playbackFile": "stellers-jay.m4a",
+    "recordist": "Ryan Douglas",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC1005237",
+    "sourceUrl": "https://xeno-canto.org/1005237",
+    "commonsUrl": ""
+  },
+  "black-headed-grosbeak": {
+    "alarmFile": "black-headed-grosbeak.caf",
+    "playbackFile": "black-headed-grosbeak.m4a",
+    "recordist": "Peter Wilton",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC544394",
+    "sourceUrl": "https://xeno-canto.org/544394",
+    "commonsUrl": ""
+  },
+  "house-sparrow": {
+    "alarmFile": "house-sparrow.caf",
+    "playbackFile": "house-sparrow.m4a",
+    "recordist": "Ujjal Kishor De",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC1005437",
+    "sourceUrl": "https://xeno-canto.org/1005437",
+    "commonsUrl": ""
+  },
+  "european-starling": {
+    "alarmFile": "european-starling.caf",
+    "playbackFile": "european-starling.m4a",
+    "recordist": "Benoît Van Hecke",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC527723",
+    "sourceUrl": "https://xeno-canto.org/527723",
+    "commonsUrl": ""
+  },
+  "great-tit": {
+    "alarmFile": "great-tit.caf",
+    "playbackFile": "great-tit.m4a",
+    "recordist": "Antti Leukkunen",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC975209",
+    "sourceUrl": "https://xeno-canto.org/975209",
+    "commonsUrl": ""
+  },
+  "eurasian-blue-tit": {
+    "alarmFile": "eurasian-blue-tit.caf",
+    "playbackFile": "eurasian-blue-tit.m4a",
+    "recordist": "Tanguy Loïs",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC894018",
+    "sourceUrl": "https://xeno-canto.org/894018",
+    "commonsUrl": ""
+  },
+  "dunnock": {
+    "alarmFile": "dunnock.caf",
+    "playbackFile": "dunnock.m4a",
+    "recordist": "Tim Vochten",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC798315",
+    "sourceUrl": "https://xeno-canto.org/798315",
+    "commonsUrl": ""
+  },
+  "european-goldfinch": {
+    "alarmFile": "european-goldfinch.caf",
+    "playbackFile": "european-goldfinch.m4a",
+    "recordist": "Sander Pieterse",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC101464",
+    "sourceUrl": "https://xeno-canto.org/101464",
+    "commonsUrl": ""
+  },
+  "common-nightingale": {
+    "alarmFile": "common-nightingale.caf",
+    "playbackFile": "common-nightingale.m4a",
+    "recordist": "Marie-Lan Taÿ Pamart",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC473316",
+    "sourceUrl": "https://xeno-canto.org/473316",
+    "commonsUrl": ""
+  },
+  "eurasian-skylark": {
+    "alarmFile": "eurasian-skylark.caf",
+    "playbackFile": "eurasian-skylark.m4a",
+    "recordist": "Jochem verweij",
+    "license": "CC BY-SA",
+    "licenseFull": "CC BY-SA 4.0",
+    "xcNumber": "XC903764",
+    "sourceUrl": "https://xeno-canto.org/903764",
+    "commonsUrl": ""
+  }
+}

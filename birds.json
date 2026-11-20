@@ -1,1 +1,1024 @@
-[]
+[
+  {
+    "id": "american-robin",
+    "commonName": "American Robin",
+    "scientificName": "Turdus migratorius",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "Often the first bird to sing in the morning, sometimes starting well before sunrise.",
+    "alarmFile": "american-robin.caf",
+    "playbackFile": "american-robin.m4a",
+    "recordist": "Doug Hynes",
+    "license": "CC BY-SA",
+    "xcNumber": "XC570791",
+    "sourceUrl": "https://xeno-canto.org/570791"
+  },
+  {
+    "id": "northern-cardinal",
+    "commonName": "Northern Cardinal",
+    "scientificName": "Cardinalis cardinalis",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "Unlike most songbirds, the female sings too, sometimes while sitting on the nest.",
+    "alarmFile": "northern-cardinal.caf",
+    "playbackFile": "northern-cardinal.m4a",
+    "recordist": "steve",
+    "license": "CC BY-SA",
+    "xcNumber": "XC797998",
+    "sourceUrl": "https://xeno-canto.org/797998"
+  },
+  {
+    "id": "black-capped-chickadee",
+    "commonName": "Black-capped Chickadee",
+    "scientificName": "Poecile atricapillus",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "The more \"dee\" notes at the end of its call, the bigger the threat it has spotted.",
+    "alarmFile": "black-capped-chickadee.caf",
+    "playbackFile": "black-capped-chickadee.m4a",
+    "recordist": "Doug Hynes",
+    "license": "CC BY-SA",
+    "xcNumber": "XC935615",
+    "sourceUrl": "https://xeno-canto.org/935615"
+  },
+  {
+    "id": "wood-thrush",
+    "commonName": "Wood Thrush",
+    "scientificName": "Hylocichla mustelina",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "It can sing two notes at once, harmonizing with itself using the two sides of its voice box.",
+    "alarmFile": "wood-thrush.caf",
+    "playbackFile": "wood-thrush.m4a",
+    "recordist": "Philip Vanbergen",
+    "license": "CC BY-SA",
+    "xcNumber": "XC364559",
+    "sourceUrl": "https://xeno-canto.org/364559"
+  },
+  {
+    "id": "song-sparrow",
+    "commonName": "Song Sparrow",
+    "scientificName": "Melospiza melodia",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "Each male knows several different songs and repeats one many times before switching.",
+    "alarmFile": "song-sparrow.caf",
+    "playbackFile": "song-sparrow.m4a",
+    "recordist": "Ryan Douglas",
+    "license": "CC BY-SA",
+    "xcNumber": "XC1005250",
+    "sourceUrl": "https://xeno-canto.org/1005250"
+  },
+  {
+    "id": "carolina-wren",
+    "commonName": "Carolina Wren",
+    "scientificName": "Thryothorus ludovicianus",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "It weighs less than an ounce, yet its song carries across a whole neighborhood.",
+    "alarmFile": "carolina-wren.caf",
+    "playbackFile": "carolina-wren.m4a",
+    "recordist": "Matthias Sirch",
+    "license": "CC BY-SA",
+    "xcNumber": "XC384609",
+    "sourceUrl": "https://xeno-canto.org/384609"
+  },
+  {
+    "id": "white-throated-sparrow",
+    "commonName": "White-throated Sparrow",
+    "scientificName": "Zonotrichia albicollis",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "Its clear whistled song is often remembered as \"Oh-sweet-Canada-Canada-Canada.\"",
+    "alarmFile": "white-throated-sparrow.caf",
+    "playbackFile": "white-throated-sparrow.m4a",
+    "recordist": "Doug Hynes",
+    "license": "CC BY-SA",
+    "xcNumber": "XC993033",
+    "sourceUrl": "https://xeno-canto.org/993033"
+  },
+  {
+    "id": "hermit-thrush",
+    "commonName": "Hermit Thrush",
+    "scientificName": "Catharus guttatus",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "Every song opens with one long clear note, and each new song starts at a different pitch.",
+    "alarmFile": "hermit-thrush.caf",
+    "playbackFile": "hermit-thrush.m4a",
+    "recordist": "steve",
+    "license": "CC BY-SA",
+    "xcNumber": "XC801743",
+    "sourceUrl": "https://xeno-canto.org/801743"
+  },
+  {
+    "id": "blue-jay",
+    "commonName": "Blue Jay",
+    "scientificName": "Cyanocitta cristata",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "It can imitate the scream of a Red-shouldered Hawk, possibly to warn other jays or scare off rivals.",
+    "alarmFile": "blue-jay.caf",
+    "playbackFile": "blue-jay.m4a",
+    "recordist": "Doug Hynes",
+    "license": "CC BY-SA",
+    "xcNumber": "XC935610",
+    "sourceUrl": "https://xeno-canto.org/935610"
+  },
+  {
+    "id": "mourning-dove",
+    "commonName": "Mourning Dove",
+    "scientificName": "Zenaida macroura",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "Its wings make a sharp whistling sound when it takes off, a built-in alarm for the rest of the flock.",
+    "alarmFile": "mourning-dove.caf",
+    "playbackFile": "mourning-dove.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "xcNumber": "XC128006",
+    "sourceUrl": "https://xeno-canto.org/128006"
+  },
+  {
+    "id": "northern-mockingbird",
+    "commonName": "Northern Mockingbird",
+    "scientificName": "Mimus polyglottos",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "A male can learn around 200 songs, and unmated males often keep singing all night.",
+    "alarmFile": "northern-mockingbird.caf",
+    "playbackFile": "northern-mockingbird.m4a",
+    "recordist": "steve",
+    "license": "CC BY-SA",
+    "xcNumber": "XC884705",
+    "sourceUrl": "https://xeno-canto.org/884705"
+  },
+  {
+    "id": "house-wren",
+    "commonName": "House Wren",
+    "scientificName": "Troglodytes aedon",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "Males stuff sticks into several nest cavities, and the female picks which one to finish.",
+    "alarmFile": "house-wren.caf",
+    "playbackFile": "house-wren.m4a",
+    "recordist": "radrat",
+    "license": "CC BY-SA",
+    "xcNumber": "XC558995",
+    "sourceUrl": "https://xeno-canto.org/558995"
+  },
+  {
+    "id": "tufted-titmouse",
+    "commonName": "Tufted Titmouse",
+    "scientificName": "Baeolophus bicolor",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "It lines its nest with hair, sometimes plucked straight from a living animal.",
+    "alarmFile": "tufted-titmouse.caf",
+    "playbackFile": "tufted-titmouse.m4a",
+    "recordist": "steve",
+    "license": "CC BY-SA",
+    "xcNumber": "XC884288",
+    "sourceUrl": "https://xeno-canto.org/884288"
+  },
+  {
+    "id": "american-goldfinch",
+    "commonName": "American Goldfinch",
+    "scientificName": "Spinus tristis",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "It nests late in summer, waiting until thistles and milkweed have soft down for the nest.",
+    "alarmFile": "american-goldfinch.caf",
+    "playbackFile": "american-goldfinch.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "xcNumber": "XC428425",
+    "sourceUrl": "https://xeno-canto.org/428425"
+  },
+  {
+    "id": "red-winged-blackbird",
+    "commonName": "Red-winged Blackbird",
+    "scientificName": "Agelaius phoeniceus",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "A single male may have several females nesting in the patch of marsh he defends.",
+    "alarmFile": "red-winged-blackbird.caf",
+    "playbackFile": "red-winged-blackbird.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "xcNumber": "XC137775",
+    "sourceUrl": "https://xeno-canto.org/137775"
+  },
+  {
+    "id": "eastern-bluebird",
+    "commonName": "Eastern Bluebird",
+    "scientificName": "Sialia sialis",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "There is no blue pigment in its feathers: the color comes from how their structure scatters light.",
+    "alarmFile": "eastern-bluebird.caf",
+    "playbackFile": "eastern-bluebird.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "xcNumber": "XC179669",
+    "sourceUrl": "https://xeno-canto.org/179669"
+  },
+  {
+    "id": "baltimore-oriole",
+    "commonName": "Baltimore Oriole",
+    "scientificName": "Icterus galbula",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "The female weaves a hanging pouch of a nest from plant fibers, hair and string.",
+    "alarmFile": "baltimore-oriole.caf",
+    "playbackFile": "baltimore-oriole.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "xcNumber": "XC178046",
+    "sourceUrl": "https://xeno-canto.org/178046"
+  },
+  {
+    "id": "rose-breasted-grosbeak",
+    "commonName": "Rose-breasted Grosbeak",
+    "scientificName": "Pheucticus ludovicianus",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "Its song is often described as a robin that has taken voice lessons.",
+    "alarmFile": "rose-breasted-grosbeak.caf",
+    "playbackFile": "rose-breasted-grosbeak.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "xcNumber": "XC134880",
+    "sourceUrl": "https://xeno-canto.org/134880"
+  },
+  {
+    "id": "red-eyed-vireo",
+    "commonName": "Red-eyed Vireo",
+    "scientificName": "Vireo olivaceus",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "One male was counted singing more than 20,000 songs in a single day.",
+    "alarmFile": "red-eyed-vireo.caf",
+    "playbackFile": "red-eyed-vireo.m4a",
+    "recordist": "Doug Hynes",
+    "license": "CC BY-SA",
+    "xcNumber": "XC991130",
+    "sourceUrl": "https://xeno-canto.org/991130"
+  },
+  {
+    "id": "gray-catbird",
+    "commonName": "Gray Catbird",
+    "scientificName": "Dumetella carolinensis",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "It is named for its mewing call, which sounds remarkably like a cat.",
+    "alarmFile": "gray-catbird.caf",
+    "playbackFile": "gray-catbird.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "xcNumber": "XC1001763",
+    "sourceUrl": "https://xeno-canto.org/1001763"
+  },
+  {
+    "id": "brown-thrasher",
+    "commonName": "Brown Thrasher",
+    "scientificName": "Toxostoma rufum",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "It has been recorded with more than 1,100 different song types, usually sung in pairs.",
+    "alarmFile": "brown-thrasher.caf",
+    "playbackFile": "brown-thrasher.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "xcNumber": "XC320485",
+    "sourceUrl": "https://xeno-canto.org/320485"
+  },
+  {
+    "id": "western-meadowlark",
+    "commonName": "Western Meadowlark",
+    "scientificName": "Sturnella neglecta",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "It is the state bird of six US states, more than almost any other bird.",
+    "alarmFile": "western-meadowlark.caf",
+    "playbackFile": "western-meadowlark.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "xcNumber": "XC254455",
+    "sourceUrl": "https://xeno-canto.org/254455"
+  },
+  {
+    "id": "swainsons-thrush",
+    "commonName": "Swainson's Thrush",
+    "scientificName": "Catharus ustulatus",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "Its flute-like song spirals upward, each phrase climbing higher than the last.",
+    "alarmFile": "swainsons-thrush.caf",
+    "playbackFile": "swainsons-thrush.m4a",
+    "recordist": "Doug Hynes",
+    "license": "CC BY-SA",
+    "xcNumber": "XC613535",
+    "sourceUrl": "https://xeno-canto.org/613535"
+  },
+  {
+    "id": "veery",
+    "commonName": "Veery",
+    "scientificName": "Catharus fuscescens",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "Its song spirals downward, sounding like it is being sung inside a metal pipe.",
+    "alarmFile": "veery.caf",
+    "playbackFile": "veery.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "xcNumber": "XC138637",
+    "sourceUrl": "https://xeno-canto.org/138637"
+  },
+  {
+    "id": "ovenbird",
+    "commonName": "Ovenbird",
+    "scientificName": "Seiurus aurocapilla",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "It is named for its domed nest on the forest floor, shaped like an old outdoor oven.",
+    "alarmFile": "ovenbird.caf",
+    "playbackFile": "ovenbird.m4a",
+    "recordist": "steve",
+    "license": "CC BY-SA",
+    "xcNumber": "XC797247",
+    "sourceUrl": "https://xeno-canto.org/797247"
+  },
+  {
+    "id": "yellow-warbler",
+    "commonName": "Yellow Warbler",
+    "scientificName": "Setophaga petechia",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "Its bright song is often remembered as \"sweet, sweet, sweet, I'm so sweet.\"",
+    "alarmFile": "yellow-warbler.caf",
+    "playbackFile": "yellow-warbler.m4a",
+    "recordist": "Andres Felipe Espinosa",
+    "license": "CC BY-SA",
+    "xcNumber": "XC688344",
+    "sourceUrl": "https://xeno-canto.org/688344"
+  },
+  {
+    "id": "common-yellowthroat",
+    "commonName": "Common Yellowthroat",
+    "scientificName": "Geothlypis trichas",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "The masked male sings a rolling \"witchety-witchety-witchety\" from marshes and wet fields.",
+    "alarmFile": "common-yellowthroat.caf",
+    "playbackFile": "common-yellowthroat.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "xcNumber": "XC137738",
+    "sourceUrl": "https://xeno-canto.org/137738"
+  },
+  {
+    "id": "indigo-bunting",
+    "commonName": "Indigo Bunting",
+    "scientificName": "Passerina cyanea",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "It migrates at night and learns to steer by the stars, as experiments in a planetarium showed.",
+    "alarmFile": "indigo-bunting.caf",
+    "playbackFile": "indigo-bunting.m4a",
+    "recordist": "Matthias Sirch",
+    "license": "CC BY-SA",
+    "xcNumber": "XC384607",
+    "sourceUrl": "https://xeno-canto.org/384607"
+  },
+  {
+    "id": "chipping-sparrow",
+    "commonName": "Chipping Sparrow",
+    "scientificName": "Spizella passerina",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "It used to line its nest with horsehair so often that it was nicknamed the hair bird.",
+    "alarmFile": "chipping-sparrow.caf",
+    "playbackFile": "chipping-sparrow.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "xcNumber": "XC320440",
+    "sourceUrl": "https://xeno-canto.org/320440"
+  },
+  {
+    "id": "dark-eyed-junco",
+    "commonName": "Dark-eyed Junco",
+    "scientificName": "Junco hyemalis",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "Often called the snowbird, because it shows up at feeders across much of the US as winter arrives.",
+    "alarmFile": "dark-eyed-junco.caf",
+    "playbackFile": "dark-eyed-junco.m4a",
+    "recordist": "steve",
+    "license": "CC BY-SA",
+    "xcNumber": "XC797245",
+    "sourceUrl": "https://xeno-canto.org/797245"
+  },
+  {
+    "id": "house-finch",
+    "commonName": "House Finch",
+    "scientificName": "Haemorhous mexicanus",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "A male's red comes from pigments in his food, and females tend to prefer the reddest males.",
+    "alarmFile": "house-finch.caf",
+    "playbackFile": "house-finch.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "xcNumber": "XC124078",
+    "sourceUrl": "https://xeno-canto.org/124078"
+  },
+  {
+    "id": "eastern-phoebe",
+    "commonName": "Eastern Phoebe",
+    "scientificName": "Sayornis phoebe",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "It sings its own name, and was the first bird ever banded in North America, by Audubon in 1804.",
+    "alarmFile": "eastern-phoebe.caf",
+    "playbackFile": "eastern-phoebe.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "xcNumber": "XC178126",
+    "sourceUrl": "https://xeno-canto.org/178126"
+  },
+  {
+    "id": "white-crowned-sparrow",
+    "commonName": "White-crowned Sparrow",
+    "scientificName": "Zonotrichia leucophrys",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "Its song has local dialects, so birds a few miles apart can sound noticeably different.",
+    "alarmFile": "white-crowned-sparrow.caf",
+    "playbackFile": "white-crowned-sparrow.m4a",
+    "recordist": "radrat",
+    "license": "CC BY-SA",
+    "xcNumber": "XC553412",
+    "sourceUrl": "https://xeno-canto.org/553412"
+  },
+  {
+    "id": "western-tanager",
+    "commonName": "Western Tanager",
+    "scientificName": "Piranga ludoviciana",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "The red on the male's face likely comes from pigments in the insects it eats.",
+    "alarmFile": "western-tanager.caf",
+    "playbackFile": "western-tanager.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "xcNumber": "XC254618",
+    "sourceUrl": "https://xeno-canto.org/254618"
+  },
+  {
+    "id": "barred-owl",
+    "commonName": "Barred Owl",
+    "scientificName": "Strix varia",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "Its call is remembered as \"Who cooks for you? Who cooks for you-all?\"",
+    "alarmFile": "barred-owl.caf",
+    "playbackFile": "barred-owl.m4a",
+    "recordist": "Doug Hynes",
+    "license": "CC BY-SA",
+    "xcNumber": "XC715195",
+    "sourceUrl": "https://xeno-canto.org/715195"
+  },
+  {
+    "id": "european-robin",
+    "commonName": "European Robin",
+    "scientificName": "Erithacus rubecula",
+    "regions": [
+      "europe"
+    ],
+    "fact": "It sings nearly all year, and near street lights it will often sing at night.",
+    "alarmFile": "european-robin.caf",
+    "playbackFile": "european-robin.m4a",
+    "recordist": "Benoît Van Hecke",
+    "license": "CC BY-SA",
+    "xcNumber": "XC527484",
+    "sourceUrl": "https://xeno-canto.org/527484"
+  },
+  {
+    "id": "common-blackbird",
+    "commonName": "Common Blackbird",
+    "scientificName": "Turdus merula",
+    "regions": [
+      "europe"
+    ],
+    "fact": "Its mellow, flute-like song is a classic sound of dawn and dusk, often delivered from a rooftop.",
+    "alarmFile": "common-blackbird.caf",
+    "playbackFile": "common-blackbird.m4a",
+    "recordist": "Jochem verweij",
+    "license": "CC BY-SA",
+    "xcNumber": "XC902409",
+    "sourceUrl": "https://xeno-canto.org/902409"
+  },
+  {
+    "id": "song-thrush",
+    "commonName": "Song Thrush",
+    "scientificName": "Turdus philomelos",
+    "regions": [
+      "europe"
+    ],
+    "fact": "It repeats each phrase two or three times before moving on to the next.",
+    "alarmFile": "song-thrush.caf",
+    "playbackFile": "song-thrush.m4a",
+    "recordist": "Benoît Van Hecke",
+    "license": "CC BY-SA",
+    "xcNumber": "XC527483",
+    "sourceUrl": "https://xeno-canto.org/527483"
+  },
+  {
+    "id": "eurasian-wren",
+    "commonName": "Eurasian Wren",
+    "scientificName": "Troglodytes troglodytes",
+    "regions": [
+      "europe"
+    ],
+    "fact": "One of the smallest birds in Europe, it packs dozens of notes into a few seconds of song.",
+    "alarmFile": "eurasian-wren.caf",
+    "playbackFile": "eurasian-wren.m4a",
+    "recordist": "steve",
+    "license": "CC BY-SA",
+    "xcNumber": "XC815472",
+    "sourceUrl": "https://xeno-canto.org/815472"
+  },
+  {
+    "id": "common-chaffinch",
+    "commonName": "Common Chaffinch",
+    "scientificName": "Fringilla coelebs",
+    "regions": [
+      "europe"
+    ],
+    "fact": "Chaffinches have regional dialects: birds a few valleys apart sing slightly different songs.",
+    "alarmFile": "common-chaffinch.caf",
+    "playbackFile": "common-chaffinch.m4a",
+    "recordist": "Latal",
+    "license": "CC BY-SA",
+    "xcNumber": "XC861317",
+    "sourceUrl": "https://xeno-canto.org/861317"
+  },
+  {
+    "id": "eurasian-blackcap",
+    "commonName": "Eurasian Blackcap",
+    "scientificName": "Sylvia atricapilla",
+    "regions": [
+      "europe"
+    ],
+    "fact": "Its rich warbling earned it the nickname \"northern nightingale.\"",
+    "alarmFile": "eurasian-blackcap.caf",
+    "playbackFile": "eurasian-blackcap.m4a",
+    "recordist": "steve",
+    "license": "CC BY-SA",
+    "xcNumber": "XC815301",
+    "sourceUrl": "https://xeno-canto.org/815301"
+  },
+  {
+    "id": "carolina-chickadee",
+    "commonName": "Carolina Chickadee",
+    "scientificName": "Poecile carolinensis",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "Where it meets the Black-capped Chickadee, the two interbreed, and the hybrids can sing either song.",
+    "alarmFile": "carolina-chickadee.caf",
+    "playbackFile": "carolina-chickadee.m4a",
+    "recordist": "steve",
+    "license": "CC BY-SA",
+    "xcNumber": "XC870687",
+    "sourceUrl": "https://xeno-canto.org/870687"
+  },
+  {
+    "id": "white-breasted-nuthatch",
+    "commonName": "White-breasted Nuthatch",
+    "scientificName": "Sitta carolinensis",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "It walks headfirst down tree trunks, finding insects that woodpeckers climbing upward miss.",
+    "alarmFile": "white-breasted-nuthatch.caf",
+    "playbackFile": "white-breasted-nuthatch.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "xcNumber": "XC121070",
+    "sourceUrl": "https://xeno-canto.org/121070"
+  },
+  {
+    "id": "downy-woodpecker",
+    "commonName": "Downy Woodpecker",
+    "scientificName": "Dryobates pubescens",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "It's North America's smallest woodpecker, and it will even climb weed stems to dig out insect larvae.",
+    "alarmFile": "downy-woodpecker.caf",
+    "playbackFile": "downy-woodpecker.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "xcNumber": "XC320358",
+    "sourceUrl": "https://xeno-canto.org/320358"
+  },
+  {
+    "id": "red-bellied-woodpecker",
+    "commonName": "Red-bellied Woodpecker",
+    "scientificName": "Melanerpes carolinus",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "Its red belly is so faint it's rarely seen; the bright red is actually on its head.",
+    "alarmFile": "red-bellied-woodpecker.caf",
+    "playbackFile": "red-bellied-woodpecker.m4a",
+    "recordist": "Ryan Douglas",
+    "license": "CC BY-SA",
+    "xcNumber": "XC872669",
+    "sourceUrl": "https://xeno-canto.org/872669"
+  },
+  {
+    "id": "northern-flicker",
+    "commonName": "Northern Flicker",
+    "scientificName": "Colaptes auratus",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "It's a woodpecker that feeds mostly on the ground, licking up ants with a long, sticky tongue.",
+    "alarmFile": "northern-flicker.caf",
+    "playbackFile": "northern-flicker.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "xcNumber": "XC104536",
+    "sourceUrl": "https://xeno-canto.org/104536"
+  },
+  {
+    "id": "cedar-waxwing",
+    "commonName": "Cedar Waxwing",
+    "scientificName": "Bombycilla cedrorum",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "Flocks sometimes pass a single berry beak to beak down a row of birds on a branch.",
+    "alarmFile": "cedar-waxwing.caf",
+    "playbackFile": "cedar-waxwing.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "xcNumber": "XC142622",
+    "sourceUrl": "https://xeno-canto.org/142622"
+  },
+  {
+    "id": "american-crow",
+    "commonName": "American Crow",
+    "scientificName": "Corvus brachyrhynchos",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "Crows recognize individual human faces and can remember someone who bothered them for years.",
+    "alarmFile": "american-crow.caf",
+    "playbackFile": "american-crow.m4a",
+    "recordist": "Doug Hynes",
+    "license": "CC BY-SA",
+    "xcNumber": "XC1031083",
+    "sourceUrl": "https://xeno-canto.org/1031083"
+  },
+  {
+    "id": "common-grackle",
+    "commonName": "Common Grackle",
+    "scientificName": "Quiscalus quiscula",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "It sometimes sits on an anthill and lets ants crawl through its feathers, which may clear out mites.",
+    "alarmFile": "common-grackle.caf",
+    "playbackFile": "common-grackle.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "xcNumber": "XC131091",
+    "sourceUrl": "https://xeno-canto.org/131091"
+  },
+  {
+    "id": "eastern-meadowlark",
+    "commonName": "Eastern Meadowlark",
+    "scientificName": "Sturnella magna",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "A male may know a hundred variations of its song and sing them from the same fence post all morning.",
+    "alarmFile": "eastern-meadowlark.caf",
+    "playbackFile": "eastern-meadowlark.m4a",
+    "recordist": "Diana Doyle",
+    "license": "CC BY-SA",
+    "xcNumber": "XC700409",
+    "sourceUrl": "https://xeno-canto.org/700409"
+  },
+  {
+    "id": "scarlet-tanager",
+    "commonName": "Scarlet Tanager",
+    "scientificName": "Piranga olivacea",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "Despite the male's blazing red, it's hard to spot, because it stays high in the leafy canopy.",
+    "alarmFile": "scarlet-tanager.caf",
+    "playbackFile": "scarlet-tanager.m4a",
+    "recordist": "steve",
+    "license": "CC BY-SA",
+    "xcNumber": "XC1145165",
+    "sourceUrl": "https://xeno-canto.org/1145165"
+  },
+  {
+    "id": "purple-finch",
+    "commonName": "Purple Finch",
+    "scientificName": "Haemorhous purpureus",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "Roger Tory Peterson described it as a sparrow dipped in raspberry juice.",
+    "alarmFile": "purple-finch.caf",
+    "playbackFile": "purple-finch.m4a",
+    "recordist": "Doug Hynes",
+    "license": "CC BY-SA",
+    "xcNumber": "XC935606",
+    "sourceUrl": "https://xeno-canto.org/935606"
+  },
+  {
+    "id": "ruby-throated-hummingbird",
+    "commonName": "Ruby-throated Hummingbird",
+    "scientificName": "Archilochus colubris",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "It weighs about as much as a penny, yet flies nonstop across the Gulf of Mexico each spring.",
+    "alarmFile": "ruby-throated-hummingbird.caf",
+    "playbackFile": "ruby-throated-hummingbird.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "xcNumber": "XC109598",
+    "sourceUrl": "https://xeno-canto.org/109598"
+  },
+  {
+    "id": "killdeer",
+    "commonName": "Killdeer",
+    "scientificName": "Charadrius vociferus",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "To lure danger from its nest, it limps away dragging a wing as if it's broken.",
+    "alarmFile": "killdeer.caf",
+    "playbackFile": "killdeer.m4a",
+    "recordist": "Doug Hynes",
+    "license": "CC BY-SA",
+    "xcNumber": "XC1032639",
+    "sourceUrl": "https://xeno-canto.org/1032639"
+  },
+  {
+    "id": "great-horned-owl",
+    "commonName": "Great Horned Owl",
+    "scientificName": "Bubo virginianus",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "It nests in the dead of winter, so its owlets are ready to hunt by late summer.",
+    "alarmFile": "great-horned-owl.caf",
+    "playbackFile": "great-horned-owl.m4a",
+    "recordist": "Michael & Katie LaTour",
+    "license": "CC BY-SA",
+    "xcNumber": "XC450919",
+    "sourceUrl": "https://xeno-canto.org/450919"
+  },
+  {
+    "id": "eastern-wood-pewee",
+    "commonName": "Eastern Wood-Pewee",
+    "scientificName": "Contopus virens",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "It keeps singing through the hot middle of the day, long after most birds have gone quiet.",
+    "alarmFile": "eastern-wood-pewee.caf",
+    "playbackFile": "eastern-wood-pewee.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "xcNumber": "XC136047",
+    "sourceUrl": "https://xeno-canto.org/136047"
+  },
+  {
+    "id": "eastern-kingbird",
+    "commonName": "Eastern Kingbird",
+    "scientificName": "Tyrannus tyrannus",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "It fearlessly attacks crows and hawks many times its size that fly near its nest.",
+    "alarmFile": "eastern-kingbird.caf",
+    "playbackFile": "eastern-kingbird.m4a",
+    "recordist": "Jonathon Jongsma",
+    "license": "CC BY-SA",
+    "xcNumber": "XC134875",
+    "sourceUrl": "https://xeno-canto.org/134875"
+  },
+  {
+    "id": "spotted-towhee",
+    "commonName": "Spotted Towhee",
+    "scientificName": "Pipilo maculatus",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "It scratches for food with a two-footed backward hop, kicking leaves behind it.",
+    "alarmFile": "spotted-towhee.caf",
+    "playbackFile": "spotted-towhee.m4a",
+    "recordist": "Diana Doyle",
+    "license": "CC BY-SA",
+    "xcNumber": "XC717736",
+    "sourceUrl": "https://xeno-canto.org/717736"
+  },
+  {
+    "id": "stellers-jay",
+    "commonName": "Steller's Jay",
+    "scientificName": "Cyanocitta stelleri",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "It can imitate hawks, squirrels, cats and even dogs.",
+    "alarmFile": "stellers-jay.caf",
+    "playbackFile": "stellers-jay.m4a",
+    "recordist": "Ryan Douglas",
+    "license": "CC BY-SA",
+    "xcNumber": "XC1005237",
+    "sourceUrl": "https://xeno-canto.org/1005237"
+  },
+  {
+    "id": "black-headed-grosbeak",
+    "commonName": "Black-headed Grosbeak",
+    "scientificName": "Pheucticus melanocephalus",
+    "regions": [
+      "north-america"
+    ],
+    "fact": "Both parents sing to each other while taking turns sitting on the eggs.",
+    "alarmFile": "black-headed-grosbeak.caf",
+    "playbackFile": "black-headed-grosbeak.m4a",
+    "recordist": "Peter Wilton",
+    "license": "CC BY-SA",
+    "xcNumber": "XC544394",
+    "sourceUrl": "https://xeno-canto.org/544394"
+  },
+  {
+    "id": "house-sparrow",
+    "commonName": "House Sparrow",
+    "scientificName": "Passer domesticus",
+    "regions": [
+      "north-america",
+      "europe"
+    ],
+    "fact": "It has lived alongside people for at least 10,000 years and is now found on every continent except Antarctica.",
+    "alarmFile": "house-sparrow.caf",
+    "playbackFile": "house-sparrow.m4a",
+    "recordist": "Ujjal Kishor De",
+    "license": "CC BY-SA",
+    "xcNumber": "XC1005437",
+    "sourceUrl": "https://xeno-canto.org/1005437"
+  },
+  {
+    "id": "european-starling",
+    "commonName": "European Starling",
+    "scientificName": "Sturnus vulgaris",
+    "regions": [
+      "north-america",
+      "europe"
+    ],
+    "fact": "All of North America's 80 million or so starlings come from about 100 birds released in New York in 1890.",
+    "alarmFile": "european-starling.caf",
+    "playbackFile": "european-starling.m4a",
+    "recordist": "Benoît Van Hecke",
+    "license": "CC BY-SA",
+    "xcNumber": "XC527723",
+    "sourceUrl": "https://xeno-canto.org/527723"
+  },
+  {
+    "id": "great-tit",
+    "commonName": "Great Tit",
+    "scientificName": "Parus major",
+    "regions": [
+      "europe"
+    ],
+    "fact": "Some great tits learned to peck through the foil tops of milk bottles left on doorsteps.",
+    "alarmFile": "great-tit.caf",
+    "playbackFile": "great-tit.m4a",
+    "recordist": "Antti Leukkunen",
+    "license": "CC BY-SA",
+    "xcNumber": "XC975209",
+    "sourceUrl": "https://xeno-canto.org/975209"
+  },
+  {
+    "id": "eurasian-blue-tit",
+    "commonName": "Eurasian Blue Tit",
+    "scientificName": "Cyanistes caeruleus",
+    "regions": [
+      "europe"
+    ],
+    "fact": "Its blue cap reflects ultraviolet light, which other blue tits can see and people can't.",
+    "alarmFile": "eurasian-blue-tit.caf",
+    "playbackFile": "eurasian-blue-tit.m4a",
+    "recordist": "Tanguy Loïs",
+    "license": "CC BY-SA",
+    "xcNumber": "XC894018",
+    "sourceUrl": "https://xeno-canto.org/894018"
+  },
+  {
+    "id": "dunnock",
+    "commonName": "Dunnock",
+    "scientificName": "Prunella modularis",
+    "regions": [
+      "europe"
+    ],
+    "fact": "It looks plain, but its family life is complicated: females often pair with two males at once.",
+    "alarmFile": "dunnock.caf",
+    "playbackFile": "dunnock.m4a",
+    "recordist": "Tim Vochten",
+    "license": "CC BY-SA",
+    "xcNumber": "XC798315",
+    "sourceUrl": "https://xeno-canto.org/798315"
+  },
+  {
+    "id": "european-goldfinch",
+    "commonName": "European Goldfinch",
+    "scientificName": "Carduelis carduelis",
+    "regions": [
+      "europe"
+    ],
+    "fact": "It has been painted into hundreds of Renaissance paintings, often in the hand of the infant Jesus.",
+    "alarmFile": "european-goldfinch.caf",
+    "playbackFile": "european-goldfinch.m4a",
+    "recordist": "Sander Pieterse",
+    "license": "CC BY-SA",
+    "xcNumber": "XC101464",
+    "sourceUrl": "https://xeno-canto.org/101464"
+  },
+  {
+    "id": "common-nightingale",
+    "commonName": "Common Nightingale",
+    "scientificName": "Luscinia megarhynchos",
+    "regions": [
+      "europe"
+    ],
+    "fact": "Males sing through the night mainly to attract a mate; once paired, many sing mostly at dawn.",
+    "alarmFile": "common-nightingale.caf",
+    "playbackFile": "common-nightingale.m4a",
+    "recordist": "Marie-Lan Taÿ Pamart",
+    "license": "CC BY-SA",
+    "xcNumber": "XC473316",
+    "sourceUrl": "https://xeno-canto.org/473316"
+  },
+  {
+    "id": "eurasian-skylark",
+    "commonName": "Eurasian Skylark",
+    "scientificName": "Alauda arvensis",
+    "regions": [
+      "europe"
+    ],
+    "fact": "It sings while rising almost straight up, hovering so high it's hard to see, sometimes for ten minutes.",
+    "alarmFile": "eurasian-skylark.caf",
+    "playbackFile": "eurasian-skylark.m4a",
+    "recordist": "Jochem verweij",
+    "license": "CC BY-SA",
+    "xcNumber": "XC903764",
+    "sourceUrl": "https://xeno-canto.org/903764"
+  }
+]

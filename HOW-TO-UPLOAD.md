@@ -94,6 +94,17 @@ Apple then processes the build, usually in 10 to 30 minutes. You'll get an email
 
 Their iPhone needs **iOS 26 or newer**. The alarms use Apple's AlarmKit, which only exists from iOS 26.
 
+## What to check on the phone
+
+- Opening **Alarms** asks for permission to set alarms. Allow it, and the screen should say how many alarms are set.
+- Set an alarm for 3 minutes from now and lock the phone. It should ring with a bird song, and show Stop and Snooze.
+- Tap **Snooze**: the Lock Screen should show the snooze countdown with the bird's name and a Stop button.
+- On **Today**, the play button plays the bird's song.
+
+## What you don't need for TestFlight
+
+TestFlight for your own team skips App Review, so there's no App Store listing to fill in: no screenshots, description, keywords, support URL or age rating. Those are only needed if you later submit it to the public App Store.
+
 ## Later updates
 
 When your kid sends you a new version of this folder, repeat steps 3 and 4 (and add your Team ID to the new `app.json` again). TestFlight builds expire after 90 days, so it needs a fresh build at least that often.

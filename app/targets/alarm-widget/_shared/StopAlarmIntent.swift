@@ -8,6 +8,8 @@ import Foundation
 struct StopAlarmIntent: LiveActivityIntent {
   static var title: LocalizedStringResource = "Stop alarm"
   static var description = IntentDescription("Stops the Dawn Chorus alarm.")
+  // Only the Live Activity's button uses this; keep it out of Shortcuts and Siri.
+  static var isDiscoverable: Bool = false
 
   @Parameter(title: "Alarm ID")
   var alarmID: String
