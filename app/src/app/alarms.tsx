@@ -1,4 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native';
+import Constants, { ExecutionEnvironment } from 'expo-constants';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 
 import { coverageEnds } from '@shared/queue';
 import type { AlarmRule } from '@shared/types';
@@ -152,7 +153,9 @@ export default function AlarmsScreen() {
       <View style={{ marginTop: 32, gap: 10 }}>
         <Body style={{ fontSize: 13, lineHeight: 19, color: alarmSync.kind === 'ok' ? C.dim : C.faint }}>
           {alarmSync.kind === 'unavailable' &&
-            "Preview: this plans your mornings but can't ring. Ringing needs the installed iPhone app, not Expo Go."}
+            (Platform.OS === 'ios' && Constants.executionEnvironment !== ExecutionEnvironment.StoreClient
+              ? "This build can't ring: the alarm module (modules/dawn-alarm/ios) wasn't included when it was built. Rebuild from the full project."
+              : "Preview: this plans your mornings but can't ring. Ringing needs the installed iPhone app, not Expo Go.")}
           {alarmSync.kind === 'syncing' && 'Setting your alarms on this phone...'}
           {alarmSync.kind === 'ok' && `${alarmSync.count} alarms are set on this phone.`}
           {alarmSync.kind === 'denied' &&
