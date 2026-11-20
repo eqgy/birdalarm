@@ -36,7 +36,7 @@ struct WidgetData: Decodable {
     let now = Date()
     return WidgetData(
       days: [Day(day: dayKey(now), name: "Wood Thrush", sci: "Hylocichla mustelina",
-                 teaser: "Tomorrow's singer is practicing in the dark.", hint: "Hint: from the thrushes family",
+                 teaser: "Tomorrow's bird stays a secret until morning.", hint: "Hint: one of the thrushes",
                  sunset: now.addingTimeInterval(6 * 3600).timeIntervalSince1970, alarm: 0)],
       alarms: [now.addingTimeInterval(14 * 3600).timeIntervalSince1970])
   }
