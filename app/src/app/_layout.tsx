@@ -59,9 +59,6 @@ function Shell() {
             <TabTrigger name="settings" href="/settings" asChild>
               <TabButton>Settings</TabButton>
             </TabTrigger>
-            <TabTrigger name="credits" href="/credits" asChild>
-              <TabButton>Credits</TabButton>
-            </TabTrigger>
           </TabList>
         </Tabs>
       )}

@@ -15,6 +15,16 @@ const fmtDate = (ms: number) =>
   new Date(ms).toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
 const fmtTime = (ms: number) => new Date(ms).toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
 
+/** "Today", "Tomorrow", "Friday" within the week, otherwise "Thursday 3 December". */
+function whenDay(ms: number) {
+  const startOf = (d: Date) => new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+  const days = Math.round((startOf(new Date(ms)) - startOf(new Date())) / 86_400_000);
+  if (days === 0) return 'Today';
+  if (days === 1) return 'Tomorrow';
+  if (days < 7) return new Date(ms).toLocaleDateString(undefined, { weekday: 'long' });
+  return fmtDate(ms);
+}
+
 /** "Weekdays", "Weekends", "Every day", or "Mon, Wed, Fri". */
 function daysLabel(days: number[]) {
   const set = [...days].sort().join();
@@ -51,10 +61,10 @@ function AlarmCard({ rule, index }: { rule: AlarmRule; index: number }) {
   return (
     <View style={[styles.card, { borderColor: C.line, backgroundColor: C.fill }]}>
       <View style={styles.cardHead}>
-        <Text style={{ color: C.dim, fontFamily: SANS, fontSize: 13 }}>
-          Alarm {index + 1} · {daysLabel(rule.days)}
+        <Text style={{ color: rule.enabled ? C.text : C.dim, fontFamily: SANS, fontSize: 15 }}>
+          {daysLabel(rule.days)}
         </Text>
-        <Toggle label={`Alarm ${index + 1} on`} value={rule.enabled} onChange={(enabled) => set({ enabled })} />
+        <Toggle label={`${daysLabel(rule.days)} alarm ${index + 1} on`} value={rule.enabled} onChange={(enabled) => set({ enabled })} />
       </View>
 
       <View style={[styles.time, !rule.enabled && { opacity: 0.4 }]}>
@@ -84,7 +94,7 @@ function AlarmCard({ rule, index }: { rule: AlarmRule; index: number }) {
       </View>
 
       <Press onPress={() => removeRule(rule.id)} hitSlop={8} accessibilityRole="button" style={styles.remove}>
-        <Text style={{ color: C.faint, fontFamily: SANS, fontSize: 13 }}>Remove this alarm</Text>
+        <Text style={{ color: C.faint, fontFamily: SANS, fontSize: 13 }}>Delete</Text>
       </Press>
     </View>
   );
@@ -92,7 +102,7 @@ function AlarmCard({ rule, index }: { rule: AlarmRule; index: number }) {
 
 export default function AlarmsScreen() {
   const { settings, queue, addRule, update, alarmSync, retryAlarmSync } = useStore();
-  const { C, SANS } = useTheme();
+  const { C, SANS, display } = useTheme();
   const next = queue.upcoming[0];
   const ends = coverageEnds(queue);
 
@@ -105,7 +115,7 @@ export default function AlarmsScreen() {
       ))}
 
       <Press onPress={addRule} accessibilityRole="button" style={[styles.add, { borderColor: C.dim }]}>
-        <Text style={{ color: C.text, fontFamily: SANS, fontSize: 15 }}>+ Add an alarm</Text>
+        <Text style={{ color: C.text, fontFamily: SANS, fontSize: 15 }}>+ Another alarm</Text>
       </Press>
 
       <View style={{ marginTop: 30, gap: 10 }}>
@@ -126,27 +136,27 @@ export default function AlarmsScreen() {
         </View>
         <Body style={{ fontSize: 14, lineHeight: 20 }}>
           {settings.snoozeMinutes
-            ? `Snooze waits ${settings.snoozeMinutes} minutes, then the same bird sings again.`
-            : 'No Snooze button. Only Stop.'}
+            ? `Snooze gives you ${settings.snoozeMinutes} more minutes, then the same bird sings again.`
+            : 'No snooze. Stop is the only button.'}
         </Body>
       </View>
 
       <View style={{ marginTop: 28, gap: 8 }}>
-        <Label>Next morning</Label>
+        <Label>Next alarm</Label>
         {next ? (
           <>
-            <Body style={{ color: C.text }}>
-              {fmtDate(next.fireAt)} at {fmtTime(next.fireAt)}
-            </Body>
-            <Body>A different bird each morning. Which one is a surprise.</Body>
+            <Text style={[{ color: C.text }, display(26)]}>
+              {whenDay(next.fireAt)} at {fmtTime(next.fireAt)}
+            </Text>
+            <Body>You&apos;ll find out which bird it is when it goes off.</Body>
             {ends !== undefined && (
               <Body>
-                {queue.upcoming.length} alarms are lined up, through {fmtDate(ends)}. Opening the app adds more.
+                Your alarms are set through {fmtDate(ends)}. Opening the app now and then keeps them going.
               </Body>
             )}
           </>
         ) : (
-          <Body>No alarm set. Add one, turn it on and pick at least one day.</Body>
+          <Body>Nothing set yet. Turn an alarm on and pick at least one day.</Body>
         )}
       </View>
 
@@ -154,13 +164,13 @@ export default function AlarmsScreen() {
         <Body style={{ fontSize: 13, lineHeight: 19, color: alarmSync.kind === 'ok' ? C.dim : C.faint }}>
           {alarmSync.kind === 'unavailable' &&
             (Platform.OS === 'ios' && Constants.executionEnvironment !== ExecutionEnvironment.StoreClient
-              ? "This build can't ring: the alarm module (modules/dawn-alarm/ios) wasn't included when it was built. Rebuild from the full project."
-              : "Preview: this plans your mornings but can't ring. Ringing needs the installed iPhone app, not Expo Go.")}
-          {alarmSync.kind === 'syncing' && 'Setting your alarms on this phone...'}
-          {alarmSync.kind === 'ok' && `${alarmSync.count} alarms are set on this phone.`}
+              ? "This copy of the app can't ring. It was built without its alarm code (modules/dawn-alarm/ios)."
+              : "This is a preview, so it won't ring. The installed app will.")}
+          {alarmSync.kind === 'syncing' && 'Setting your alarms…'}
+          {alarmSync.kind === 'ok' && 'All set on this phone.'}
           {alarmSync.kind === 'denied' &&
-            'Dawn Chorus is not allowed to set alarms. Turn it on in Settings > Apps > Dawn Chorus, then come back.'}
-          {alarmSync.kind === 'error' && `Couldn't set alarms: ${alarmSync.message}`}
+            'Alarms are turned off for Dawn Chorus. You can turn them on in Settings › Apps › Dawn Chorus.'}
+          {alarmSync.kind === 'error' && `Something went wrong setting your alarms (${alarmSync.message}).`}
         </Body>
         {(alarmSync.kind === 'denied' || alarmSync.kind === 'error') && (
           <Press onPress={retryAlarmSync} style={[styles.retry, { backgroundColor: C.fillOn }]}>

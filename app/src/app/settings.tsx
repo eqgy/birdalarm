@@ -1,6 +1,7 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { StyleSheet, Text, View } from 'react-native';
 
+import { Credits } from '@/components/credits';
 import { Body, Label, Row, Screen, Title, Toggle, useTheme, Press } from '@/components/ui';
 import { REGION_NAMES } from '@/data/birds';
 import { useStore } from '@/state/store';
@@ -106,7 +107,11 @@ export default function SettingsScreen() {
         />
       </Row>
 
-      <Body style={{ marginTop: 32, fontSize: 13, lineHeight: 19, color: C.faint }}>
+      <View style={{ marginTop: 32 }}>
+        <Credits />
+      </View>
+
+      <Body style={{ marginTop: 24, fontSize: 13, lineHeight: 19, color: C.faint }}>
         No account, no tracking, no network. Everything stays on this phone.
       </Body>
     </Screen>
