@@ -15,7 +15,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { router, useFocusEffect, useLocalSearchParams, useNavigation } from 'expo-router';
 import { type ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import {
-  AccessibilityInfo, Animated, Easing, type ScrollViewInstance, Platform, StyleSheet, Text, View, useWindowDimensions,
+  AccessibilityInfo, Animated, Easing, ScrollView, type ScrollViewInstance, Platform, StyleSheet, Text, View, useWindowDimensions,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -207,18 +207,6 @@ function MoreHint({ bird, still, onPress }: { bird: LibraryBird; still: boolean;
   );
 }
 
-function Section({ title, children }: { title: string; children: ReactNode }) {
-  const { C } = useTheme();
-  return (
-    <View style={[styles.section, { borderTopColor: C.line }]}>
-      <Label>{title}</Label>
-      <View style={{ marginTop: 8 }}>
-        {typeof children === 'string' ? <Body style={{ color: C.text, opacity: 0.88 }}>{children}</Body> : children}
-      </View>
-    </View>
-  );
-}
-
 /** A rounded tag. With onPress it links to another bird. */
 function Chip({ children, onPress }: { children: string; onPress?: () => void }) {
   const { C, SANS } = useTheme();
@@ -229,6 +217,46 @@ function Chip({ children, onPress }: { children: string; onPress?: () => void })
   ) : (
     <View style={style}>{text}</View>
   );
+}
+
+/** A chapter of the details: a title in the display font over a short rule. */
+function Chapter({ title, children }: { title: string; children: ReactNode }) {
+  const { C, display } = useTheme();
+  return (
+    <View style={styles.chapter}>
+      <View style={[styles.rule, { backgroundColor: C.text }]} />
+      <Text style={[{ color: C.text, marginBottom: 16 }, display(28)]}>{title}</Text>
+      {children}
+    </View>
+  );
+}
+
+/** A smaller heading inside a chapter. */
+function Sub({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <View style={{ marginTop: 22 }}>
+      <Label style={{ marginBottom: 8 }}>{title}</Label>
+      {children}
+    </View>
+  );
+}
+
+/** The first quoted song phrase in the "Listen for" text, e.g. drink-your-tea!. */
+function songQuote(listen: string): string | undefined {
+  return listen.match(/"([^"]{3,70})"/)?.[1]?.replace(/[.,]$/, '');
+}
+
+const SHORT_MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+/** "All year", or the main stretch of months, e.g. "May to Sep" or "Oct to Apr". */
+function seasonSummary(months: string): string {
+  if (!months.includes('0') && !months.includes('1')) return 'All year';
+  const on = (i: number) => months[(i + 12) % 12] === '2';
+  const start = [...Array(12).keys()].find((i) => on(i) && !on(i - 1));
+  if (start === undefined) return 'All year';
+  let end = start;
+  while (on(end + 1) && (end + 1) % 12 !== start) end++;
+  return `${SHORT_MONTHS[start]} to ${SHORT_MONTHS[end % 12]}`;
 }
 
 const MONTHS = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
@@ -409,9 +437,9 @@ export default function TodayScreen() {
   // A bird opened from the Birds list or a link on this page.
   const picked = birdById(params.bird);
   const bird = picked ?? todays;
-  const label = picked && picked.id !== todays.id ? 'From the library' : woke ? 'Who woke you up' : "Today's bird";
+  const label = picked && picked.id !== todays.id ? 'from the library' : woke ? 'woke you up' : "today's bird";
   // A fresh scene per bird, so the page starts at the top.
-  return <BirdScene key={bird.id} bird={bird} label={label} showBack={label === 'From the library'} />;
+  return <BirdScene key={bird.id} bird={bird} label={label} showBack={label === 'from the library'} />;
 }
 
 function BirdScene({ bird, label, showBack }: { bird: LibraryBird; label: string; showBack: boolean }) {
@@ -448,14 +476,13 @@ function BirdScene({ bird, label, showBack }: { bird: LibraryBird; label: string
         <View style={{ height: spacer }} />
 
         <View style={styles.words}>
-          <FadeIn delay={700}>
-            <Label style={[{ color: C.text, opacity: 0.8 }, textShadow]}>{label}</Label>
-          </FadeIn>
-          <FadeIn delay={1200}>
+          <FadeIn delay={900}>
             <Text style={[styles.name, { color: C.text, lineHeight: ds(50) + 6 }, display(50), textShadow]}>
               {bird.commonName}
             </Text>
-            <Text style={[styles.sci, { color: C.text, opacity: 0.85, fontFamily: ITALIC }, textShadow]}>{bird.scientificName}</Text>
+          </FadeIn>
+          <FadeIn delay={1500}>
+            <Text style={[styles.under, { color: C.text, fontFamily: ITALIC }, textShadow]}>{label}</Text>
           </FadeIn>
           <FadeIn delay={2000}>
             <Body style={[styles.fact, { color: C.text, opacity: 0.88 }]}>{bird.fact}</Body>
@@ -472,60 +499,107 @@ function BirdScene({ bird, label, showBack }: { bird: LibraryBird; label: string
           </FadeIn>
 
           <View onLayout={(e) => setDetailsY(e.nativeEvent.layout.y + spacer)} style={styles.details}>
-            {bird.marks && (
-              <Section title="Field marks">
-                {bird.marks.map((m) => (
-                  <View key={m} style={styles.bullet}>
-                    <View style={[styles.bulletDot, { backgroundColor: C.dim }]} />
-                    <Body style={{ color: C.text, opacity: 0.88, flex: 1 }}>{m}</Body>
-                  </View>
-                ))}
-              </Section>
-            )}
-            {bird.listen && <Section title="Listen for">{bird.listen}</Section>}
-            {bird.lookalikes && (
-              <Section title="Lookalikes">
-                {bird.lookalikes.map((l) => {
-                  const other = birdByName(l.name);
-                  return (
-                    <View key={l.name} style={[styles.compare, { borderColor: C.line }]}>
-                      <View style={styles.compareRow}>
-                        <ThumbCard source={photo?.source} focusX={photo?.credit.focusX} name={bird.commonName} />
-                        <Text style={[styles.vs, { color: C.faint, fontFamily: ITALIC }]}>vs</Text>
-                        <ThumbCard
-                          source={lookalikePhoto(l.name)?.source}
-                          focusX={lookalikePhoto(l.name)?.credit.focusX}
-                          name={l.name}
-                          onPress={other ? () => open(other.id) : undefined}
-                        />
+            <Text style={[{ color: C.dim }, display(20)]}>{bird.scientificName}</Text>
+
+            {(bird.marks || bird.plumage) && (
+              <Chapter title="Spot it">
+                {bird.marks && (
+                  <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.bleed} contentContainerStyle={styles.rail}>
+                    {bird.marks.map((m, i) => (
+                      <View key={m} style={[styles.markCard, { borderColor: C.line, backgroundColor: C.fill }]}>
+                        <Text style={[{ color: C.faint }, display(30)]}>{i + 1}</Text>
+                        <Body style={{ color: C.text, marginTop: 6 }}>{m}</Body>
                       </View>
-                      <Body style={{ color: C.text, opacity: 0.85, marginTop: 12 }}>{l.tell}</Body>
+                    ))}
+                  </ScrollView>
+                )}
+                {bird.plumage && (
+                  <Sub title="Male, female and young">
+                    <Body style={{ color: C.text, opacity: 0.88 }}>{bird.plumage}</Body>
+                  </Sub>
+                )}
+              </Chapter>
+            )}
+
+            {bird.listen && (
+              <Chapter title="Hear it">
+                {songQuote(bird.listen) && (
+                  <Text style={[styles.quote, { color: C.text, fontFamily: ITALIC }]}>{`“${songQuote(bird.listen)}”`}</Text>
+                )}
+                <Body style={{ color: C.text, opacity: 0.82 }}>{bird.listen}</Body>
+              </Chapter>
+            )}
+
+            {bird.lookalikes && (
+              <Chapter title="Don’t mix it up">
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.bleed} contentContainerStyle={styles.rail}>
+                  {bird.lookalikes.map((l) => {
+                    const other = birdByName(l.name);
+                    return (
+                      <View key={l.name} style={[styles.compare, { borderColor: C.line, width: Math.min(300, width - 80) }]}>
+                        <View style={styles.compareRow}>
+                          <ThumbCard source={photo?.source} focusX={photo?.credit.focusX} name={bird.commonName} />
+                          <Text style={[styles.vs, { color: C.faint, fontFamily: ITALIC }]}>vs</Text>
+                          <ThumbCard
+                            source={lookalikePhoto(l.name)?.source}
+                            focusX={lookalikePhoto(l.name)?.credit.focusX}
+                            name={l.name}
+                            onPress={other ? () => open(other.id) : undefined}
+                          />
+                        </View>
+                        <Body style={{ color: C.text, opacity: 0.85, marginTop: 12 }}>{l.tell}</Body>
+                      </View>
+                    );
+                  })}
+                </ScrollView>
+              </Chapter>
+            )}
+
+            {(bird.habitat || bird.months) && (
+              <Chapter title="Find it">
+                <View style={styles.pair}>
+                  {bird.habitat && (
+                    <View style={styles.cell}>
+                      <Label>Where</Label>
+                      <Body style={{ color: C.text, opacity: 0.88, marginTop: 6 }}>{bird.habitat}</Body>
                     </View>
-                  );
-                })}
-              </Section>
+                  )}
+                  {bird.months && (
+                    <View style={[styles.cell, styles.cellNarrow, { borderLeftColor: C.line }]}>
+                      <Label>When</Label>
+                      <Text style={[{ color: C.text, marginTop: 6 }, display(20)]}>{seasonSummary(bird.months)}</Text>
+                    </View>
+                  )}
+                </View>
+                {bird.months && (
+                  <View style={{ marginTop: 22 }}>
+                    <MonthBar months={bird.months} caption={caption} />
+                    {bird.seasonNote && <Body style={{ color: C.text, opacity: 0.82, marginTop: 12 }}>{bird.seasonNote}</Body>}
+                  </View>
+                )}
+              </Chapter>
             )}
-            {bird.plumage && <Section title="Male, female and young">{bird.plumage}</Section>}
-            {bird.months && (
-              <Section title="When to see it">
-                <MonthBar months={bird.months} caption={caption} />
-                {bird.seasonNote && <Body style={{ color: C.text, opacity: 0.88, marginTop: 14 }}>{bird.seasonNote}</Body>}
-              </Section>
-            )}
-            {bird.habitat && <Section title="Where to look">{bird.habitat}</Section>}
-            {bird.size && (
-              <Section title="Size">
-                <SizeScale size={bird.size} source={photo?.source} focusX={photo?.credit.focusX} />
-                <Body style={{ color: C.text, opacity: 0.88, marginTop: 12 }}>{bird.size}</Body>
-              </Section>
-            )}
-            {bird.family && (
-              <Section title="Family">
-                <Body style={{ color: C.text, opacity: 0.88 }}>{bird.family}</Body>
+
+            {(bird.size || bird.family) && (
+              <Chapter title="Size and family">
+                {bird.size && <SizeScale size={bird.size} source={photo?.source} focusX={photo?.credit.focusX} />}
+                <View style={[styles.pair, { marginTop: 14 }]}>
+                  {bird.size && (
+                    <View style={styles.cell}>
+                      <Label>Size</Label>
+                      <Body style={{ color: C.text, opacity: 0.88, marginTop: 6 }}>{bird.size}</Body>
+                    </View>
+                  )}
+                  {bird.family && (
+                    <View style={[styles.cell, { borderLeftColor: C.line, borderLeftWidth: StyleSheet.hairlineWidth, paddingLeft: 16 }]}>
+                      <Label>Family</Label>
+                      <Body style={{ color: C.text, opacity: 0.88, marginTop: 6 }}>{bird.family}</Body>
+                    </View>
+                  )}
+                </View>
                 {mates.length > 0 && (
-                  <>
-                    <Text style={{ color: C.dim, fontFamily: SANS, fontSize: 13, marginTop: 12 }}>Also in the library</Text>
-                    <View style={styles.mates}>
+                  <Sub title="Also in the library">
+                    <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.bleed} contentContainerStyle={styles.rail}>
                       {mates.map((m) => (
                         <Press key={m.id} onPress={() => open(m.id)} accessibilityRole="link" style={styles.mate}>
                           <RoundPhoto source={photoFor(m.id)?.source} focusX={photoFor(m.id)?.credit.focusX} size={64} />
@@ -534,21 +608,25 @@ function BirdScene({ bird, label, showBack }: { bird: LibraryBird; label: string
                           </Text>
                         </Press>
                       ))}
-                    </View>
-                  </>
+                    </ScrollView>
+                  </Sub>
                 )}
-              </Section>
+              </Chapter>
             )}
-            {bird.groups && (
-              <Section title="Categories">
-                <View style={[styles.chips, { marginTop: 0 }]}>
-                  {bird.groups.map((g) => (
-                    <Chip key={g}>{g}</Chip>
-                  ))}
-                </View>
-              </Section>
+
+            {(bird.nameNote || bird.groups) && (
+              <Chapter title="The name">
+                {bird.nameNote && <Body style={{ color: C.text, opacity: 0.88 }}>{bird.nameNote}</Body>}
+                {bird.groups && (
+                  <View style={[styles.chips, { marginTop: 16 }]}>
+                    {bird.groups.map((g) => (
+                      <Chip key={g}>{g}</Chip>
+                    ))}
+                  </View>
+                )}
+              </Chapter>
             )}
-            {bird.nameNote && <Section title="The name">{bird.nameNote}</Section>}
+
             {showBack && (
               <Press onPress={() => router.setParams({ bird: undefined })} accessibilityRole="button" style={styles.back}>
                 <Text style={{ color: C.text, fontFamily: SANS, fontSize: 14 }}>{'← Back to today’s bird'}</Text>
@@ -579,7 +657,7 @@ const styles = StyleSheet.create({
   fade: { position: 'absolute', left: 0, right: 0 },
   words: { paddingHorizontal: 28, width: '100%', maxWidth: 560, alignSelf: 'center' },
   name: { marginTop: 10 },
-  sci: { fontSize: 17, marginTop: 6 },
+  under: { fontSize: 19, marginTop: 4, opacity: 0.85 },
   fact: { marginTop: 18, maxWidth: 420 },
   playRow: { flexDirection: 'row', alignItems: 'center', gap: 16, marginTop: 26 },
   playWrap: { width: 60, height: 60, alignItems: 'center', justifyContent: 'center' },
@@ -601,7 +679,16 @@ const styles = StyleSheet.create({
   track: { height: 2, borderRadius: 1, marginTop: 8, overflow: 'hidden', maxWidth: 220 },
   trackFill: { height: 2 },
   more: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, marginTop: 34, paddingVertical: 8 },
-  details: { marginTop: 28 },
+  details: { marginTop: 40 },
+  chapter: { marginTop: 44 },
+  rule: { width: 28, height: 2, borderRadius: 1, marginBottom: 14, opacity: 0.6 },
+  bleed: { marginHorizontal: -28 },
+  rail: { paddingHorizontal: 28, gap: 12 },
+  markCard: { width: 190, borderWidth: StyleSheet.hairlineWidth, borderRadius: 16, padding: 16 },
+  quote: { fontSize: 24, lineHeight: 32, marginBottom: 14 },
+  pair: { flexDirection: 'row', gap: 16 },
+  cell: { flex: 1 },
+  cellNarrow: { flex: 0, minWidth: 110, borderLeftWidth: StyleSheet.hairlineWidth, paddingLeft: 16 },
   section: { borderTopWidth: StyleSheet.hairlineWidth, paddingVertical: 20 },
   credit: { fontSize: 11, lineHeight: 16, marginTop: 12 },
   bullet: { flexDirection: 'row', alignItems: 'flex-start', gap: 12, marginBottom: 6 },
@@ -611,7 +698,7 @@ const styles = StyleSheet.create({
   months: { flexDirection: 'row', gap: 4, marginTop: 4 },
   month: { alignSelf: 'stretch', height: 22, borderRadius: 4 },
   nowDot: { width: 4, height: 4, borderRadius: 2, backgroundColor: 'transparent' },
-  compare: { borderWidth: StyleSheet.hairlineWidth, borderRadius: 14, padding: 14, marginBottom: 12 },
+  compare: { borderWidth: StyleSheet.hairlineWidth, borderRadius: 14, padding: 14 },
   compareRow: { flexDirection: 'row', alignItems: 'center', gap: 10 },
   vs: { fontSize: 15 },
   thumb: { width: '100%', aspectRatio: 1, borderRadius: 10, overflow: 'hidden' },

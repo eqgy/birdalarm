@@ -1,32 +1,38 @@
 /**
- * Evening lines for the widget, hyping up tomorrow's mystery bird. One per date, picked by the
- * date alone, so everyone sees the same line on the same evening.
+ * The evening clue for tomorrow's bird, shown on the widget after sunset. It's a real detail
+ * about the bird: one of its field marks, or its song or call as people write it down. Picked by the
+ * date alone, so everyone gets the same clue on the same evening. Song quotes that contain
+ * part of the bird's name ("chick-a-dee", "fee-bee" for the phoebe) are skipped.
  */
-export const TEASERS = [
-  "Tomorrow's bird is picked. You'll hear it when your alarm goes off.",
-  "There's a different bird waiting for tomorrow morning.",
-  "Can you guess tomorrow's bird from the hint?",
-  "Everyone gets the same bird tomorrow. See if you can name it first.",
-  "Get some sleep. Tomorrow's bird sings early.",
-  "Tomorrow's bird stays a secret until morning.",
-  "Listen for it before you open your eyes.",
-  "The hint below is all you get until morning.",
-  "Tomorrow starts with a new song.",
-  "Most birds start singing a little before sunrise. Yours will too.",
-  "Try to name tomorrow's bird before the app tells you.",
-  "Good night. Tomorrow's bird is ready.",
-  "You might know this one. You might not.",
-  "One more sleep until you find out.",
-  "Here's a clue for tomorrow.",
-  "Tomorrow's bird is out there somewhere tonight.",
-];
+import type { LibraryBird } from './birds';
 
-/** A clue about the bird without giving it away: its size one day, its family the next. */
-export function hintFor(day: number, bird: { size?: string; family?: string }): string {
-  if (day % 2 === 0 && bird.size) return `Hint: ${bird.size.charAt(0).toLowerCase()}${bird.size.slice(1)}`;
-  // Family names are plural ("Thrushes", "New World sparrows"), so: "one of the thrushes".
-  if (bird.family) return `Hint: one of the ${/^(New|Old) World/.test(bird.family) ? bird.family : bird.family.toLowerCase()}`;
-  return bird.size ? `Hint: ${bird.size.toLowerCase()}` : '';
+/** Quoted song phrases from the "Listen for" text that don't give the name away. */
+function songPhrases(bird: LibraryBird): string[] {
+  const listen = bird.listen ?? '';
+  // "its own name", "named for its call": the song is the name, so it would give it away.
+  if (/own name|named for/i.test(listen)) return [];
+  const nameWords = bird.commonName.toLowerCase().split(/[\s-]+/).map((w) => w.replace(/[^a-z]/g, ''));
+  const quotes = [...listen.matchAll(/"([^"]{4,60})"/g)].map((m) => m[1]!.replace(/[.,]$/, ''));
+  return quotes.filter((q) => {
+    const words = q.toLowerCase().split(/[^a-z]+/).filter((w) => w.length >= 3);
+    const flat = q.toLowerCase().replace(/[^a-z]/g, '');
+    // Skip it if a song word starts a name word ("veer" in Veery) or a name word is in the song.
+    return !words.some((w) => nameWords.some((n) => n.startsWith(w))) &&
+      !nameWords.some((n) => n.length > 3 && flat.includes(n.slice(0, 5)));
+  });
 }
 
-export const teaserFor = (day: number) => TEASERS[((day % TEASERS.length) + TEASERS.length) % TEASERS.length]!;
+export function clueFor(day: number, bird: LibraryBird): string {
+  const clues: string[] = [];
+  const songs = songPhrases(bird);
+  // Leave out marks that use a word from the name ("Blue crest" for the Blue Jay).
+  const nameWords = bird.commonName.toLowerCase().split(/[\s-]+/).filter((w) => w.length >= 4);
+  const marks = (bird.marks ?? []).filter((m) => !nameWords.some((w) => m.toLowerCase().includes(w)));
+  // Alternate: a field mark, then the song, then another mark...
+  for (let i = 0; i < Math.max(marks.length, songs.length); i++) {
+    if (marks[i]) clues.push(marks[i]!.replace(/\s*\((male|female|summer male|adults)\)/i, ''));
+    if (songs[i]) clues.push(`Listen for "${songs[i]}"`);
+  }
+  if (!clues.length) return bird.size ?? '';
+  return clues[((day % clues.length) + clues.length) % clues.length]!;
+}
